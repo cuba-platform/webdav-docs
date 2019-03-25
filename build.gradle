@@ -10,22 +10,21 @@ buildscript {
 
 apply plugin: 'org.asciidoctor.convert'
 
-apply plugin: 'idea'
-
 asciidoctor {
-    sourceDir 'content'
+    sourceDir = file('content')
     sources {
         include 'index.adoc'
     }
-    outputDir "$buildDir/docs"
-    resources {
-        from('content/images') {
-            include('**/*.png')
-        }
-        into 'images'
-    }
+    outputDir = file('build')
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.10.3'
+asciidoctor.doLast {
+    copy{
+        from 'images'
+        into 'build/html5/images'
+    }
+    copy{
+        from 'styles'
+        into 'build/html5/styles'
+    }
 }

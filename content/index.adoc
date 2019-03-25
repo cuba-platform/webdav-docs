@@ -1,22 +1,29 @@
-= WebDAV Manual
+= WebDAV Add-on Manual
 :toc: left
-:toclevels: 5
-:sectnumlevels: 5
+:toc-title: Contents
+:toclevels: 6
+:sectnumlevels: 6
+:stylesheet: studio.css
 :linkcss:
+:linkattrs:
 :source-highlighter: coderay
-:doctype: book
-:icons: font
 :imagesdir: images
-:sectnums:
+:stylesdir: styles
+:sourcesdir: ../../source
+:doctype: book
+:docinfo: private
+:docinfodir: ../../docinfo
 :sectlinks:
 :sectanchors:
-:nofooter:
-:revnumber: 0.1
-:version-label: Version
-:revremark: Copyright (c) 2019 Haulmont (www.haulmont.com)
 :lang: en
-:flowable_doc_url: https://www.flowable.org/docs/userguide/index.html
-:cuba_doc_url: https://doc.cuba-platform.com/manual-7.0
+:revremark: Copyright (c) 2019 Haulmont (www.haulmont.com)
+:idea-version: 2018.3
+:version-label: Version
+:plugin-version: 7.0
+:main_man_url: https://doc.cuba-platform.com/manual-7.0
+:rel_notes_url: http://files.cuba-platform.com/cuba/release-notes/7.0
+:revnumber: 7.0
+:sectnums:
 
 == Overview
 
