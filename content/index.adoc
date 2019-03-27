@@ -52,32 +52,32 @@ To update your Service Pack, follow this https://www.microsoft.com/ru-RU/downloa
 ==== Adding Repository
 
 1. Open your project in CUBA Studio.
-2. Edit *Project properties*.
+2. Edit *Properties*.
 +
 image::opening_project_properties.png[]
 +
-3. Open the *Repository editor* and click *Add*.
+3. Click the *Plus* button in the *Repositories* section.
 +
 image::adding_repository1.png[]
 +
-4. Specify the repository URL: https://repo.cuba-platform.com/content/repositories/premium-snapshots and your credentials in the corresponding fields. The first part of your license key before dash is the repository user name, the part after dash is the password. For example, if your key is *111111222222-abcdefabcdef*, then the user name
-is *111111222222* and the password is *abcdefabcdef*. Click *OK* to save the changes.
+4. Specify the repository URL: `https://repo.cuba-platform.com/content/repositories/premium-snapshots` and your credentials in the corresponding fields. The first part of your license key before dash is the repository user name, the part after dash is the password. For example, if your key is `111111222222-abcdefabcdef`, then the user name
+is `111111222222` and the password is `abcdefabcdef`. Click *OK* to save the changes.
 +
 image::adding_repository2.png[]
 +
-5. Select the added repository and click *Use in the project* to add it to the list of project repositories. Click *OK* to confirm the operation.
+5. Select the added repository in the list of repositories to use it in your project.
 +
 image::adding_repository3.png[]
 +
-6. Click *Apply* to save the project properties.
+6. Click *OK* to save the project properties.
 +
 image::saving_project_properties.png[]
 
 
 ==== Adding Component
 
-1. Edit *Project properties*.
-2. Click the plus button in the *App components* section of the *Main* tab.
+1. Edit *Properties*.
+2. Click the *Plus* button in the *App components* section.
 +
 image::adding_component1.png[]
 +
@@ -87,7 +87,7 @@ Click *OK* to confirm the operation.
 +
 image::adding_component2.png[]
 +
-4. Click *Apply* or *OK* to save the project properties.
+4. Click *OK* to save the project properties.
 
 [[user-access]]
 === User Access
@@ -1227,13 +1227,13 @@ In order to add an attribute of the WebdavDocument type the following steps shou
 
 1. Open your project in CUBA Studio.
 
-2. Open *Entity Designer* by selecting a required entity and clicking *Edit* in the Data Model section.
+2. Double-click the required entity in the CUBA project tree and go to the *Design* tab.
 +
 image::entity_designer.png[]
 +
-3. Click *New* in the *Attributes* section. After this, the *Create attribute* dialog window is opened.
+3. Click *New* in the *Attributes* section. After this, the *New Attribute* dialog window is opened.
 +
 image::creating_attribute.png[]
 +
-4. Select the 'Association' value in the *Attribute type* field. Specify 'WebdavDocument' as a value of the *Type* field.
+4. Select the `ASSOCIATION` value in the *Attribute type* field. Specify `WebdavDocument` as a value of the *Type* field.
 Fill in the required fields and click *Add* to confirm the creation of a new attribute.
