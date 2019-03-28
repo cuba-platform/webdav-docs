@@ -70,8 +70,7 @@ image::adding_repository2.png[]
 image::adding_repository3.png[]
 +
 6. Click *OK* to save the project properties.
-+
-image::saving_project_properties.png[]
+
 
 
 ==== Adding Component
