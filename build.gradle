@@ -19,12 +19,27 @@ asciidoctor {
 }
 
 asciidoctor.doLast {
-    copy{
+    copy {
         from 'images'
         into 'build/html5/images'
     }
-    copy{
+    copy {
         from 'styles'
         into 'build/html5/styles'
     }
+    copy {
+        from 'js'
+        into 'build/html5/js'
+    }
+}
+
+build.dependsOn(asciidoctor)
+
+build.doLast {
+    def tmpDir = new File(buildDir, "tmp/war")
+    copy {
+        from "$buildDir/html5"
+        into tmpDir
+    }
+    ant.jar(destfile: "$buildDir/war/webdav.war", basedir: tmpDir)
 }
