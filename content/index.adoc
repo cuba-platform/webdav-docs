@@ -1095,6 +1095,8 @@ Use the application properties described below to configure document downloading
 
 * *Interface*: `WebdavServerConfig`
 
+* *Available values*: `http`, `https`
+
 *webdav.server.hostname*
 
 * *Description*: a host name and address
