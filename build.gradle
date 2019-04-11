@@ -10,7 +10,7 @@ buildscript {
 
 apply plugin: 'org.asciidoctor.convert'
 
-ext.docVersion = rootProject.hasProperty('docVersion') ? rootProject['docVersion'] : '2.3'
+ext.docsVersion = rootProject.hasProperty('docsVersion') ? rootProject['docsVersion'] : '2.3'
 
 asciidoctor {
     sourceDir = file('content')
@@ -43,5 +43,5 @@ build.doLast {
         from "$buildDir/html5"
         into tmpDir
     }
-    ant.jar(destfile: "$buildDir/war/webdav-" + docVersion + ".war", basedir: tmpDir)
+    ant.jar(destfile: "$buildDir/war/webdav-" + docsVersion + ".war", basedir: tmpDir)
 }
