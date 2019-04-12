@@ -162,7 +162,7 @@ The component enables to receive a link to a document, which can be published on
 parties. When opening the link, your browser requests credentials for accessing the document / document
 version. After successful authorization, the document/version is opened in a desktop version of an external application.
 
-== Component Functionalities
+== Component Features
 
 === Data Model
 
