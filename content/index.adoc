@@ -46,7 +46,7 @@ the Product Information section from *File → Help*.
 
 Service Pack 2 for MS Office 2010 (and later versions) should have the following number: 14.0.7015.1000 (or greater).
 To update your Service Pack, follow this https://www.microsoft.com/ru-RU/download/details.aspx?id=39667[link].
- 
+
 === Installation via CUBA Studio
 
 ==== Adding Repository
@@ -60,7 +60,7 @@ image::opening_project_properties.png[]
 +
 image::adding_repository1.png[]
 +
-4. Specify the repository URL: `https://repo.cuba-platform.com/content/repositories/premium-snapshots` and your credentials in the corresponding fields. The first part of your license key before dash is the repository user name, the part after dash is the password. For example, if your key is `111111222222-abcdefabcdef`, then the user name
+4. Specify the repository URL: `https://repo.cuba-platform.com/content/groups/premium` and your credentials in the corresponding fields. The first part of your license key before dash is the repository user name, the part after dash is the password. For example, if your key is `111111222222-abcdefabcdef`, then the user name
 is `111111222222` and the password is `abcdefabcdef`. Click *OK* to save the changes.
 +
 image::adding_repository2.png[]
@@ -127,7 +127,7 @@ To enable them, use one (or several if required) of the options provided below:
 ----
 
 * Enabling the functionalities for fields of the WebdavDocument type. To learn how to create attributes of the WebdavDocument
-type, please refer to <<appendix-d-creating-attributes-of-the-webdavdocument-type>>
+type, please refer to <<appendix-d-creating-attributes-of-the-webdavdocument-type>>.
 
 [source,java]
 ----
@@ -150,7 +150,7 @@ image::webdav-example.png[]
 
 *Note*: After enabling the WebDav component, its functionalities are available only when working with freshly-created objects.
 To apply the changes to previously created objects, it is required to migrate the data (for more details,
-see <<data-migration>>.
+see <<data-migration>>).
 
 Before using the component, check that all application properties are configured properly. For more information, get
 acquainted with <<appendix-a-application-properties>>.
@@ -480,7 +480,7 @@ related to the Contract entity for migration.
 
 image::migration/migration-1-4.png[]
 
-Launching migration is available by clicking the _Migrate_ button. Once the process is completed, the system displays its
+Launching migration is available by clicking the *Migrate* button. Once the process is completed, the system displays its
 results.
 
 image::migration/migration-1-5.png[]
@@ -495,7 +495,7 @@ image::migration/migration-1-6.png[]
 Having the previous example in consideration, let's check how migration affects fields, for which WebDav has been disabled.
 We will use the same Contract entity. Let's assume that there are several WebDav entities linked to the 'document' field,
 which were created before. To get a full picture of how the migration process works in this case,
-let's upload a new document version for the Contract #3 entity — 'New contract #3.docx'.
+let's upload a new document version for the `Contract #3` entity — `New contract #3.docx`.
 
 image::migration/migration-2-1.png[]
 
@@ -528,7 +528,7 @@ image::migration/migration-2-5.png[]
 
 * *Description*: Removes expired lock-objects
 
-[[webdavdocumentversionscleaner]]
+[[webdavdocumentversionscleaner,WebdavDocumentVersionsCleaner]]
 
 *WebdavDocumentVersionsCleaner*
 
@@ -536,7 +536,7 @@ image::migration/migration-2-5.png[]
 
 * *Interval*: 1 month
 
-* *Description*: Removes WebdavDocumentVersion instances, which do not have links to documents.
+* *Description*: Removes WebdavDocumentVersion instances, which do not have links to documents
 
 *Note*: In order to not remove versions, which are currently being edited, the versions created less than
 a day ago (from the current time) are excluded from the task. For instance, if today is 10.02.18, then versions created
@@ -554,7 +554,7 @@ applicable to a user role. Find out more https://doc.cuba-platform.com/manual-la
 
 Let us consider the following example. There is the 'Clients' role created in the system and it is necessary to restrict
 users with this role to read Webdav documents. For this purpose, configure the 'Clients' role as it is shown in the
-figure below (for more details, refer to https://doc.cuba-platform.com/manual-latest/roles.html[this documentation].
+figure below (for more details, refer to https://doc.cuba-platform.com/manual-latest/roles.html[this documentation]).
 
 image::security/sec-1-1.png[]
 
@@ -616,27 +616,27 @@ or {@code viewName} view by a user id / login / user.
 
 It is designed to work with `WebdavDocument`. The service methods allow you to:
 
-* receive a document by a document / file/ document version id / FileDescriptor id / document id / document version
-* restrict/grant access to a document for a certain period
-* create / update / delete a document
-* create / update / delete versions of a particular document
+* receive a document by a document / file/ document version id / FileDescriptor id / document id / document version;
+* restrict/grant access to a document for a certain period;
+* create / update / delete a document;
+* create / update / delete versions of a particular document.
 
 === WebdavDocumentVersionsManagementService
 
 The service is used to work with document versions. It enables to:
 
-* get the first version of a document
-* receive the latest version of a document
-* get a particular version of a document
-* get all existing versions of a document
-* create / update / delete a document versions
+* get the first version of a document;
+* receive the latest version of a document;
+* get a particular version of a document;
+* get all existing versions of a document;
+* create / update / delete a document versions.
 
 === WebdavMigrationService
 
 The service methods provide allow executing the following operations:
-* executing the migration process
-* getting the information about classes and properties to be migrated
-* receiving the information about migration types (can be used only on the middleware level)
+* executing the migration process;
+* getting the information about classes and properties to be migrated;
+* receiving the information about migration types (can be used only on the middleware level);
 * getting results of the migration process, e.g. defines whether some files are expected to be removed after migration.
 
 === WebdavRawLinksManagementService
@@ -651,9 +651,9 @@ The service is used for getting impersistent links to documents. These links are
 
 The service enables to execute the following operations:
 
-* getting a link to a latest document version in full access/read-only mode
-* getting a link to a particular document version in full access/read-only mode
-* receiving information about an external application used for opening a document version
+* getting a link to a latest document version in full access/read-only mode;
+* getting a link to a particular document version in full access/read-only mode;
+* receiving information about an external application used for opening a document version.
 
 === WebdavUserDetailsService
 
@@ -676,16 +676,17 @@ can see all versions of a document.
 image::document-link.png[]
 
 The component features the following functionalities:
+
 * Opening the latest version of a document for reading/editing.
-* Opening preceding document versions in read-only mode (for more details, see <<document-version-manager>>;
+* Opening preceding document versions in read-only mode (for more details, see <<document-version-manager>>).
 
 ==== Work Modes
 
 The component works in the following three modes:
 
-* Webdav is disabled
-* Webdav is enabled, Versioning is disabled
-* Webdav is enabled, Versioning is enabled
+* Webdav is disabled.
+* Webdav is enabled, Versioning is disabled.
+* Webdav is enabled, Versioning is enabled.
 
 |===
 ||Webdav is enabled|Webdav is disabled
@@ -700,7 +701,7 @@ scheme file in a required screen descriptor. During this step, it is important t
 component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the
 example above, the name space is determined by the word 'webdav'.
 
-[source,xml] 
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
@@ -794,8 +795,8 @@ image::document-version-link.png[]
 
 The component works in the following three modes:
 
-* Webdav is disabled;
-* Webdav is enabled, Versioning is disabled;
+* Webdav is disabled.
+* Webdav is enabled, Versioning is disabled.
 * Webdav is enabled, Versioning is enabled.
 
 |===
@@ -905,18 +906,18 @@ WebdavDocumentVersionLink documentVersionLink = componentsFactory.createComponen
 
 The component features the following functionalities:
 
-* Uploading a file to create a new document or a document version;
+* Uploading a file to create a new document or a document version.
 * Opening a document for reading/editing.
-* Downloading the latest or preceding document versions;
+* Downloading the latest or preceding document versions.
 * Creating new document versions based on previous ones.
 
 === Work Modes
 
 The component works in the following three modes:
 
-* Webdav is disabled
-* Webdav is enabled, Versioning is disabled
-* Webdav is enabled, Versioning is enabled
+* Webdav is disabled.
+* Webdav is enabled, Versioning is disabled.
+* Webdav is enabled, Versioning is enabled.
 
 |===
 ||Webdav is enabled|Webdav is disabled
@@ -1143,13 +1144,13 @@ As a result, values of all aforementioned properties form the following address:
 
 *Adding Repository*
 
-Open the `build.gradle` file and specify the repository URL: https://repo.cuba-platform.com/content/repositories/premium-snapshots
+Open the `build.gradle` file and specify the repository URL: https://repo.cuba-platform.com/content/groups/premium
 and your credentials in the `repositories` section.
 
 [source,java]
 ----
 buildscript {
-   ext.cubaVersion = '6.8.5'
+   ext.cubaVersion = '7.0.4'
    repositories {
        maven {
            url 'https://repo.cuba-platform.com/content/groups/work'
@@ -1161,9 +1162,9 @@ buildscript {
 
        //The repository, which contains the Webdav component
        maven {
-           url 'https://repo.cuba-platform.com/content/repositories/premium-snapshots'
+           url 'https://repo.cuba-platform.com/content/groups/premium'
            credentials {
-               username('111111111111')
+               username('111111222222')
                password('xxxxxxxxxxxx')
            }
        }
@@ -1181,7 +1182,7 @@ Open the `build.gradle` file and specify the component artifacts in the `depende
 ----
 dependencies {
    ...
-   appComponent("com.haulmont.webdav:webdav-global:2.1-SNAPSHOT")
+   appComponent("com.haulmont.webdav:webdav-global:2.3.1")
 }
 ----
 
@@ -1207,17 +1208,18 @@ After adding the repository and component to the `build.gradle` file, it is nece
 The table below provides the information about component versions compatible with the platform version used in your project:
 
 |===
-| Platform Version | Add-on Version 
-| 6.10.x           | 2.2.0          
-| 6.9.x            | 2.1.0          
-| 6.8.x            | 2.0.0          
+| Platform Version | Add-on Version
+| 7.0.x            | 2.3.1
+| 6.10.x           | 2.2.1
+| 6.9.x            | 2.1.0
+| 6.8.x            | 2.0.0
 |===
 
-Example: `com.haulmont.webdav:webdav-global:2.1.0`
+Example: `com.haulmont.webdav:webdav-global:2.3.1`
 
  * *Artifact group*: com.haulmont.webdav
  * *Artifact name*: webdav-global
- * *Version*: 2.1.0
+ * *Version*: 2.3.1
 
 
 [[appendix-d-creating-attributes-of-the-webdavdocument-type]]
