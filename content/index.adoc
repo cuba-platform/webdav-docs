@@ -27,7 +27,7 @@
 
 == Overview
 
-WebDAV Cuba AppComponent provides the following functionalities:
+CUBA WebDAV Add-on provides the following functionalities:
 
 * Editing and viewing documents using desktop versions of external applications (MS Word, MS Excel, etc.).
 * Document version control. After updating a document, a new version of it is created on the server side.
