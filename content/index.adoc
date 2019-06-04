@@ -155,6 +155,20 @@ see <<data-migration>>).
 Before using the component, check that all application properties are configured properly. For more information, get
 acquainted with <<appendix-a-application-properties>>.
 
+If you want to use WebDAV fields in the CUBA `<form>` element then you need to add WebDAV component scheme to your screen XML file
+
+[source,xml]
+----
+xmlns:wd="http://schemas.haulmont.com/webdav/ui-component.xsd"
+----
+
+Following fields can be used to manage WebDAV documents:
+
+- `webdav-document-upload` - field for WebDAV document
+- `webdav-document-upload` - field for FileDescriptor
+
+
+
 [[links]]
 === Links
 
@@ -1182,7 +1196,7 @@ Open the `build.gradle` file and specify the component artifacts in the `depende
 ----
 dependencies {
    ...
-   appComponent("com.haulmont.webdav:webdav-global:2.3.1")
+   appComponent("com.haulmont.webdav:webdav-global:2.3.3")
 }
 ----
 
@@ -1209,17 +1223,17 @@ The table below provides the information about component versions compatible wit
 
 |===
 | Platform Version | Add-on Version
-| 7.0.x            | 2.3.1
+| 7.0.x            | 2.3.3
 | 6.10.x           | 2.2.1
 | 6.9.x            | 2.1.0
 | 6.8.x            | 2.0.0
 |===
 
-Example: `com.haulmont.webdav:webdav-global:2.3.1`
+Example: `com.haulmont.webdav:webdav-global:2.3.3`
 
  * *Artifact group*: com.haulmont.webdav
  * *Artifact name*: webdav-global
- * *Version*: 2.3.1
+ * *Version*: 2.3.3
 
 
 [[appendix-d-creating-attributes-of-the-webdavdocument-type]]
