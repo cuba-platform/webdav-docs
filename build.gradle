@@ -10,7 +10,7 @@ buildscript {
 
 apply plugin: 'org.asciidoctor.convert'
 
-ext.docsVersion = rootProject.hasProperty('docsVersion') ? rootProject['docsVersion'] : '2.3'
+ext.docsVersion = rootProject.hasProperty('docsVersion') ? rootProject['docsVersion'] : '2.4'
 
 asciidoctor {
     sourceDir = file('content')
