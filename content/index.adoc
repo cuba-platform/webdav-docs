@@ -19,10 +19,10 @@
 :revremark: Copyright (c) 2019 Haulmont (www.haulmont.com)
 :idea-version: 2018.3
 :version-label: Version
-:plugin-version: 7.0
+:plugin-version: 2.3
 :main_man_url: https://doc.cuba-platform.com/manual-7.0
 :rel_notes_url: http://files.cuba-platform.com/cuba/release-notes/7.0
-:revnumber: 7.0
+:revnumber: 2.3
 :sectnums:
 
 == Overview
