@@ -88,14 +88,10 @@ image::adding_component2.png[]
 +
 4. Click *OK* to save the project properties.
 
-[[user-access]]
-=== User Access
+[[https]]
+=== HTTPS
 
-If there are some application users created in the system before activating the WebDav component (e.g. admin),
-the component functionalities are not available to them. To grant those users access, it is mandatory to change
-their passwords.
-
-Please check this https://doc.cuba-platform.com/manual-latest/users.html[documentation] for more details.
+By default, the component uses basic authentication. Basic authentication requires an encrypted connection (https). Example settings for Tomcat can be found, for example, https://dzone.com/articles/setting-ssl-tomcat-5-minutes[here].
 
 === Enabling Component
 
@@ -618,6 +614,19 @@ server side after opening it in an external application.
 
 image::security/sec-2-4.png[]
 
+=== Using Digest Authentication
+
+Digest auth example can be found in <<appendix-e-digest-authentication-configuration-example>>.
+
+1. Place the config to the main package in web module, for example,
+ `com/company/app/webdav-dispatcher-spring.xml`
+
+2. Replace default webdav dispatcher config by adding the property with path to new config to `web-app.properties`:
+ `webdav.dispatcherSpringContextConfig = com/company/app/webdav-dispatcher-spring.xml`
+
+*Note:* If there are some application users created in the system before activating the WebDav component (e.g. admin), the component functionalities are not available to them. To grant those users access, it is mandatory to change their passwords.
+
+Please check this https://doc.cuba-platform.com/manual-latest/users.html[documentation] for more details.
 
 == Main Services
 
@@ -625,6 +634,8 @@ image::security/sec-2-4.png[]
 
 It is designed to work with `WebdavCredentials`. The service is used to get credentials of a user with a local
 or {@code viewName} view by a user id / login / user.
+
+*WebdavCredentials required for Digest Authentication*
 
 === WebdavDocumentsManagementService
 
@@ -1099,11 +1110,31 @@ Considering the example given above, we can conclude that if the user tries open
 
 Use the application properties described below to configure document downloading/opening:
 
-*webdav.server.protocol*
+*webdav.useUrlPrefix*
+
+* *Description*: use full url prefix instead of **webdav.server.*** parameters
+
+* *Default value:* `true`
+
+* *Type*: stored in the database
+
+* *Interface*: `WebdavConfig`
+
+*webdav.urlPrefix*
+
+* *Description*: prefix for WebDAV document link
+
+* *Default value*: `https://localhost:8443/app/webdav`
+
+* *Type*: stored in the database
+
+* *Interface*: `WebdavConfig`
+
+*webdav.server.protocol* _(deprecated)_
 
 * *Description*: a server connection protocol
 
-* *Default value*: `http`
+* *Default value*: `https`
 
 * *Type*: stored in the database
 
@@ -1111,7 +1142,7 @@ Use the application properties described below to configure document downloading
 
 * *Available values*: `http`, `https`
 
-*webdav.server.hostname*
+*webdav.server.hostname* _(deprecated)_
 
 * *Description*: a host name and address
 
@@ -1121,17 +1152,17 @@ Use the application properties described below to configure document downloading
 
 * *Interface*: `WebdavServerConfig`
 
-*webdav.server.port*
+*webdav.server.port* _(deprecated)_
 
 * *Description*: a port, on which the server is running
 
-* *Default value*: `8080`
+* *Default value*: `8443`
 
 * *Type*: stored in the database
 
 * *Interface*: `WebdavServerConfig`
 
-*webdav.server.modulePrefix*
+*webdav.server.modulePrefix* _(deprecated)_
 
 * *Description*: an application address
 
@@ -1141,7 +1172,7 @@ Use the application properties described below to configure document downloading
 
 * *Interface*: `WebdavServerConfig`
 
-*webdav.server.dispatcherPath*
+*webdav.server.dispatcherPath* _(deprecated)_
 
 * *Description*: a dispatcher servlet address
 
@@ -1151,7 +1182,7 @@ Use the application properties described below to configure document downloading
 
 * *Interface*: `WebdavServerConfig`
 
-As a result, values of all aforementioned properties form the following address: http://localhost:8080/app/dispatch/webdav/
+As a result, values of all aforementioned properties form the following address: *https://localhost:8443/app/webdav/*
 
 [appendix]
 = Manual Installation
@@ -1255,3 +1286,131 @@ image::creating_attribute.png[]
 +
 4. Select the `ASSOCIATION` value in the *Attribute type* field. Specify `WebdavDocument` as a value of the *Type* field.
 Fill in the required fields and click *Add* to confirm the creation of a new attribute.
+
+[[appendix-e-digest-authentication-configuration-example]]
+[appendix]
+= Digest authentication configuration example
+
+`webdav-dispatcher-spring.xml`:
+
+[source,xml]
+----
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.3.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-4.2.xsd
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.haulmont.webdav.webdav"/>
+
+    <mvc:annotation-driven conversion-service="conversionService"/>
+
+    <bean id="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"
+          class="com.haulmont.webdav.webdav.WebdavRequestMappingHandlerMapping"/>
+
+    <bean id="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"
+          class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="webdav_PropFindRequestHttpToPropFindRequestPropertiesConverter"/>
+                <ref bean="webdav_PropFindResponseObjectToPropFindResponseHttpConverter"/>
+                <ref bean="webdav_LockRequestHttpToLockRequestPredicateConverter"/>
+                <ref bean="webdav_LockInfoWithResourceUriToLockResponseHttpConverter"/>
+                <ref bean="stringHttpMessageConverter"/>
+                <ref bean="byteArrayHttpMessageConverter"/>
+                <ref bean="resourceHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="exceptionHandlerExceptionResolver"
+          class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
+        <property name="messageConverters">
+            <list>
+                <ref bean="webdav_WebdavExceptionHttpConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="compositeExceptionResolver"
+          class="org.springframework.web.servlet.handler.HandlerExceptionResolverComposite">
+        <property name="exceptionResolvers">
+            <list>
+                <ref bean="exceptionHandlerExceptionResolver"/>
+            </list>
+        </property>
+        <property name="order" value="0"/>
+    </bean>
+
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="webdav_WebdavDocumentVersionToListOfNodesConverter"/>
+                <ref bean="webdav_LockInfoWithResourceUriToElementConverter"/>
+                <ref bean="webdav_LockInfoIdToStringConverter"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="stringHttpMessageConverter"
+          class="org.springframework.http.converter.StringHttpMessageConverter"/>
+
+    <bean id="byteArrayHttpMessageConverter"
+          class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+
+    <bean id="resourceHttpMessageConverter"
+          class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+
+    <bean id="webdav_WebdavDigestAuthenticationFilter" class=
+            "com.haulmont.webdav.webdav.servlet.WebdavDigestAuthenticationFilter">
+        <property name="userDetailsService" ref="webdav_UserDetailsServiceAdapter"/>
+        <property name="authenticationEntryPoint" ref="webdav_DigestEntryPoint"/>
+        <property name="passwordAlreadyEncoded" value="true"/>
+    </bean>
+
+    <bean id="webdav_DigestEntryPoint" class=
+            "com.haulmont.webdav.webdav.servlet.WebdavDigestAuthenticationEntryPoint">
+        <property name="realmName" value="webdav"/>
+        <property name="key" value="acegi"/>
+        <property name="nonceValiditySeconds" value="10"/>
+    </bean>
+
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder"/>
+
+    <security:authentication-manager id="authManager">
+        <security:authentication-provider user-service-ref="webdav_UserDetailsServiceAdapter">
+            <security:password-encoder ref="passwordEncoder"/>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <security:http use-expressions="true"
+                   create-session="stateless"
+                   entry-point-ref="webdav_DigestEntryPoint">
+        <security:intercept-url pattern="/**" access="isAuthenticated()"/>
+
+        <security:anonymous enabled="false"/>
+        <security:csrf disabled="true"/>
+
+        <security:custom-filter ref="webdav_WebdavFilter" after="LOGIN_PAGE_FILTER"/>
+        <security:custom-filter ref="webdav_WebdavDigestAuthenticationFilter" before="DIGEST_AUTH_FILTER"/>
+        <security:custom-filter ref="webdav_ConnectorSpringSecurityAndCubaSecurityFilter" after="DIGEST_AUTH_FILTER"/>
+    </security:http>
+
+    <bean id="httpFirewall"
+          class="org.springframework.security.web.firewall.StrictHttpFirewall">
+        <property name="allowedHttpMethods" value="GET,HEAD,LOCK,OPTIONS,PROPFIND,PUT,UNLOCK"/>
+    </bean>
+
+    <security:http-firewall ref="httpFirewall"/>
+</beans>
+----
