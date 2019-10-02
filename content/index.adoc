@@ -47,46 +47,102 @@ the Product Information section from *File → Help*.
 Service Pack 2 for MS Office 2010 (and later versions) should have the following number: 14.0.7015.1000 (or greater).
 To update your Service Pack, follow this https://www.microsoft.com/ru-RU/download/details.aspx?id=39667[link].
 
-=== Installation via CUBA Studio
+=== Installation
 
-==== Adding Repository
+==== Installation of Trial Version
 
+In case you've got a trial version of the add-on and have a ZIP file with artifacts, follow the instructions:
+
+1. Go to the user's home directory and create `.m2` folder if it doesn't exist. It is your local Maven repository. Default home directory for operation system:
++
+* Windows - `<root>\Users\<username>`
+* Linux - `/home/<username>`
+* macOS - `/Users/<username>`
++
+2. Create folder `repository` in `.m2`.
+
+3. Unzip the file with artifacts into this directory. You should get the following directory structure:
++
+image::structure.png[]
++
+4. Double-click *Properties* in CUBA project tree. 
++
+image::properties.png[]
++
+5. Select the *Use local Maven repository* checkbox and apply the changes.
+
+6. Go to *CUBA -> Marketplace* in the main menu.
++
+image::main-menu.png[]
++
+7. Click the *Gear* icon in the upper-right corner, then *Install by coordinates…*
++
+image::gear.png[]
++
+8. Enter coordinates of the latest add-on version. Copy coordinates from the *Component Coordinates* section on the page of the add-on on the https://www.cuba-platform.com/marketplace/[marketplace]. 
++
+image::copy-coordinates.png[]
++
+9. Add `.trial` at the end of the coordinates, for example:
++
+image::coordinates.png[]
++
+10. Click *OK* and *Apply*. The installation will start.
+
+==== Installation of Purchased Add-on
+
+If you have a subscription for the add-on, you need to add premium repository and then install the add-on. Follow the steps below to install the add-on in your project.
+
+===== Adding Repository
 1. Open your project in CUBA Studio.
 2. Edit *Properties*.
 +
-image::opening_project_properties.png[]
+image::properties.png[]
 +
 3. Click the *Plus* button in the *Repositories* section.
 +
 image::adding_repository1.png[]
 +
-4. Specify the repository URL: `https://repo.cuba-platform.com/content/groups/premium` and your credentials in the corresponding fields. The first part of your license key before dash is the repository user name, the part after dash is the password. For example, if your key is `111111222222-abcdefabcdef`, then the user name
-is `111111222222` and the password is `abcdefabcdef`. Click *OK* to save the changes.
+4. Specify the repository URL:
 +
-image::adding_repository2.png[]
+ * https://cuba-platform.bintray.com/premium, if the main repository is Bintray
+ * https://repo.cuba-platform.com/content/groups/premium, if the main repository is repo.cuba-platform.com
 +
-5. Select the added repository in the list of repositories to use it in your project.
+5. Enter your credentials in the corresponding fields. The first part of your license key before dash is the repository user name, the part after dash is the password. For example, if your key is `111111222222-abcdefabcdef`
+* For Bintray repository user name - `111111222222@cuba-platform`, password - `abcdefabcdef`
+* For repo.cuba-platform.com user name - `111111222222`, password - `abcdefabcdef`
++
+image::credentials.png[]
++
+Click *OK* to save the changes.
++
+Also, you can add the repository by editing `build.gradle` file. The configuration steps are described in https://doc.cuba-platform.com/manual-latest/access_to_repo.html#access_to_premium_repo[Developer's Manual].
++
+6. Select the added repository in the list of repositories to use it in your project.
 +
 image::adding_repository3.png[]
 +
-6. Click *OK* to save the project properties.
+7. Click *OK* to save the project properties.
 
+===== Adding Component
 
+1. Double-click *Add-ons* in the CUBA project tree.
++
+image::marketplace.png[]
++
+2. Select *Marketplace* tab and find *WebDAV* add-on.
++
+image::webdav-addon.png[]
++
+3. Click *Install* button and confirm that you have a subscription in the appeared dialog.
++
+image::subscription.png[]
++
+4. Click *Apply & Close* button and then *Continue* in the dialog.
++
+image::continue.png[]
 
-==== Adding Component
-
-1. Edit *Properties*.
-2. Click the *Plus* button in the *App components* section.
-+
-image::adding_component1.png[]
-+
-3. Specify the coordinates of the component in the corresponding field as follows: **group:name:version**
-(see the <<appendix-c-compatible-versions>>).
-Click *OK* to confirm the operation.
-+
-image::adding_component2.png[]
-+
-4. Click *OK* to save the project properties.
+*WebDAV* add-on will be installed in your project.
 
 [[https]]
 === HTTPS
@@ -618,15 +674,15 @@ image::security/sec-2-4.png[]
 
 Digest auth example can be found in <<appendix-e-digest-authentication-configuration-example>>.
 
-1. Place the config to the main package in web module, for example,
- `com/company/app/webdav-dispatcher-spring.xml`
+1. Place the config in the main package in the *web* module, for example:    
+`com/company/app/webdav-dispatcher-spring.xml`
 
 2. Replace default webdav dispatcher config by adding the property with path to new config to `web-app.properties`:
- `webdav.dispatcherSpringContextConfig = com/company/app/webdav-dispatcher-spring.xml`
+`webdav.dispatcherSpringContextConfig = com/company/app/webdav-dispatcher-spring.xml`
 
 *Note:* If there are some application users created in the system before activating the WebDav component (e.g. admin), the component functionalities are not available to them. To grant those users access, it is mandatory to change their passwords.
 
-Please check this https://doc.cuba-platform.com/manual-latest/users.html[documentation] for more details.
+Please see https://doc.cuba-platform.com/manual-latest/users.html[documentation] for more details.
 
 == Main Services
 
@@ -635,7 +691,7 @@ Please check this https://doc.cuba-platform.com/manual-latest/users.html[documen
 It is designed to work with `WebdavCredentials`. The service is used to get credentials of a user with a local
 or {@code viewName} view by a user id / login / user.
 
-*WebdavCredentials required for Digest Authentication*
+*WebdavCredentials required for Digest Authentication*.
 
 === WebdavDocumentsManagementService
 
