@@ -53,13 +53,13 @@ To update your Service Pack, follow this https://www.microsoft.com/ru-RU/downloa
 
 In case you've got a trial version of the add-on and have a ZIP file with artifacts, follow the instructions:
 
-1. Go to the user's home directory and create `.m2` folder if it doesn't exist. It is your local Maven repository. Default home directory for operation system:
+1. Go to the user's home directory and create `.m2` folder if it doesn't exist. It is your local Maven repository. Default home directory for operating system:
 +
-* Windows - `<root>\Users\<username>`
+* Windows - `C:\Users\<username>`
 * Linux - `/home/<username>`
 * macOS - `/Users/<username>`
 +
-2. Create folder `repository` in `.m2`.
+2. Create `repository` folder in `.m2`.
 
 3. Unzip the file with artifacts into this directory. You should get the following directory structure:
 +
