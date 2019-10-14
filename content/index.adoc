@@ -53,41 +53,40 @@ To update your Service Pack, follow this https://www.microsoft.com/ru-RU/downloa
 
 In case you've got a trial version of the add-on and have a ZIP file with artifacts, follow the instructions:
 
-1. Go to the user's home directory and create `.m2` folder if it doesn't exist. It is your local Maven repository. Default home directory for operating system:
-+
-* Windows - `C:\Users\<username>`
-* Linux - `/home/<username>`
-* macOS - `/Users/<username>`
-+
-2. Create `repository` folder in `.m2`.
+. Create a directory called `repository` in the root directory of your project.
 
-3. Unzip the file with artifacts into this directory. You should get the following directory structure:
+. Unzip the file with artifacts into this directory. You should get the following directory structure:
 +
 image::structure.png[]
 +
-4. Double-click *Properties* in CUBA project tree. 
+. Register the new Maven repository in the `build.gradle` file.
 +
-image::properties.png[]
+[source]
+----
+repositories {
+        maven {
+            url './repository'
+        }
+}
+----
 +
-5. Select the *Use local Maven repository* checkbox and apply the changes.
-
-6. Go to *CUBA -> Marketplace* in the main menu.
+. Go to *CUBA -> Marketplace* in the main menu.
 +
 image::main-menu.png[]
 +
-7. Click the *Gear* icon in the upper-right corner, then *Install by coordinates…*
+. Click the *Gear* icon in the upper-right corner, then *Install by coordinates…*
 +
 image::gear.png[]
 +
-8. Enter coordinates of the latest add-on version. Copy coordinates from the *Component Coordinates* section on the page of the add-on on the https://www.cuba-platform.com/marketplace/[marketplace]. 
+. Enter coordinates of the latest add-on version. Copy coordinates from the *Component Coordinates* section on the page of the add-on on the https://www.cuba-platform.com/marketplace/webdav/[marketplace].
 +
 image::copy-coordinates.png[]
 +
-9. Add `.trial` at the end of the coordinates, for example:
+. Add `.trial` at the end of the coordinates, for example:
 +
 image::coordinates.png[]
 +
-10. Click *OK* and *Apply*. The installation will start.
+. Click *OK* and *Apply*. The installation will start.
 
 ==== Installation of Purchased Add-on
 
