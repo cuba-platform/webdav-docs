@@ -39,7 +39,7 @@ At the same time, the component supports work with documents having versioning b
 
 === Minimal Requirements
 
-The minimum version of Microsoft Office required for opening documents via the WebDav protocol is MS Office 2010 SP2, or higher.
+The minimum version of Microsoft Office required for opening documents via the WebDav protocol is MS Office 2010 SP2, or higher. The minimum version of LibreOffice is 6.3.
 
 To check which versions of Microsoft Office and Service Pack (SP) are installed on your computer, launch MS Word and open
 the Product Information section from *File → Help*.
@@ -1160,6 +1160,9 @@ Considering the example given above, we can conclude that if the user tries open
 * *Type*: stored in the database
 
 * *Interface*: `WebdavConfig`
+
+Example value for LibreOffice:
+`{"vnd.libreoffice.command":{"name":"LibreOffice","protocols":{"writable":"vnd.libreoffice.command:ofe|u|","read_only":"vnd.libreoffice.command:ofv|u|"},"extensions":["odt", "ods", "odp", "doc", "docx", "xls", "xlsx", "ppt", "pptx"]}}`
 
 *Link Generator*
 
