@@ -63,18 +63,18 @@ image::structure.png[]
 +
 [source]
 ----
-repositories {
-        maven {
-            url './repository'
-        }
-}
+maven {
+    url './repository'
+    }
 ----
++
+image::buildscript.png[]
 +
 . Go to *CUBA -> Marketplace* in the main menu.
 +
 image::main-menu.png[]
 +
-. Click the *Gear* icon in the upper-right corner, then *Install by coordinates…*
+. Click the icon in the upper-right corner.
 +
 image::gear.png[]
 +
