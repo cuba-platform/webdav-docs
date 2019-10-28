@@ -90,40 +90,7 @@ image::coordinates.png[]
 
 ==== Installation of Purchased Add-on
 
-If you have a subscription for the add-on, you need to add premium repository and then install the add-on. Follow the steps below to install the add-on in your project.
-
-===== Adding Repository
-1. Open your project in CUBA Studio.
-2. Edit *Properties*.
-+
-image::properties.png[]
-+
-3. Click the *Plus* button in the *Repositories* section.
-+
-image::adding_repository1.png[]
-+
-4. Specify the repository URL:
-+
- * https://cuba-platform.bintray.com/premium, if the main repository is Bintray
- * https://repo.cuba-platform.com/content/groups/premium, if the main repository is repo.cuba-platform.com
-+
-5. Enter your credentials in the corresponding fields. The first part of your license key before dash is the repository user name, the part after dash is the password. For example, if your key is `111111222222-abcdefabcdef`
-* For Bintray repository user name - `111111222222@cuba-platform`, password - `abcdefabcdef`
-* For repo.cuba-platform.com user name - `111111222222`, password - `abcdefabcdef`
-+
-image::credentials.png[]
-+
-Click *OK* to save the changes.
-+
-Also, you can add the repository by editing `build.gradle` file. The configuration steps are described in https://doc.cuba-platform.com/manual-latest/access_to_repo.html#access_to_premium_repo[Developer's Manual].
-+
-6. Select the added repository in the list of repositories to use it in your project.
-+
-image::adding_repository3.png[]
-+
-7. Click *OK* to save the project properties.
-
-===== Adding Component
+If you have a subscription for the add-on follow the steps below. Please ensure you have https://www.cuba-platform.com/download/previous-studio/[Studio] version 12 or newer installed.
 
 1. Double-click *Add-ons* in the CUBA project tree.
 +
