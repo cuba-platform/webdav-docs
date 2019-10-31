@@ -12,7 +12,7 @@
 :sourcesdir: ../../source
 :doctype: book
 :docinfo: private
-:docinfodir: ../../docinfo
+:docinfodir: ../docinfo
 :sectlinks:
 :sectanchors:
 :lang: en
