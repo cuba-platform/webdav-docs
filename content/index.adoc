@@ -12,7 +12,7 @@
 :sourcesdir: ../../source
 :doctype: book
 :docinfo: private
-:docinfodir: ../../docinfo
+:docinfodir: ../docinfo
 :sectlinks:
 :sectanchors:
 :lang: en
@@ -51,7 +51,7 @@ To update your Service Pack, follow this https://www.microsoft.com/ru-RU/downloa
 
 ==== Installation of Trial Version
 
-In case you've got a trial version of the add-on and have a ZIP file with artifacts, follow the instructions:
+In case you've got a trial version of the add-on and have a ZIP file with artifacts, follow the instructions. Please ensure you have https://www.cuba-platform.com/download/previous-studio/[Studio] version 12 or newer installed.
 
 1. Go to the user's home directory and create `.m2` folder if it doesn't exist. It is your local Maven repository. Default home directory for operation system:
 +
