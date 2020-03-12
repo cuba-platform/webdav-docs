@@ -19,10 +19,10 @@
 :revremark: Copyright (c) 2019 Haulmont (www.haulmont.com)
 :idea-version: 2018.3
 :version-label: Version
-:plugin-version: 2.4
+:plugin-version: 2.5
 :main_man_url: https://doc.cuba-platform.com/manual-7.1
 :rel_notes_url: http://files.cuba-platform.com/cuba/release-notes/7.1
-:revnumber: 2.4
+:revnumber: 2.5
 :sectnums:
 
 == Overview
@@ -1252,7 +1252,7 @@ Open the `build.gradle` file and specify the component artifacts in the `depende
 ----
 dependencies {
    ...
-   appComponent("com.haulmont.webdav:webdav-global:2.4.0")
+   appComponent("com.haulmont.webdav:webdav-global:2.5.0")
 }
 ----
 
@@ -1279,6 +1279,7 @@ The table below provides the information about component versions compatible wit
 
 |===
 | Platform Version | Add-on Version
+| 7.2.x            | 2.5.0
 | 7.1.x            | 2.4.0
 | 7.0.x            | 2.3.3
 | 6.10.x           | 2.2.1
@@ -1286,11 +1287,11 @@ The table below provides the information about component versions compatible wit
 | 6.8.x            | 2.0.0
 |===
 
-Example: `com.haulmont.webdav:webdav-global:2.4.0`
+Example: `com.haulmont.webdav:webdav-global:2.5.0`
 
  * *Artifact group*: com.haulmont.webdav
  * *Artifact name*: webdav-global
- * *Version*: 2.4.0
+ * *Version*: 2.5.0
 
 
 [[appendix-d-creating-attributes-of-the-webdavdocument-type]]
