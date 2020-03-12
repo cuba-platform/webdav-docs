@@ -16,12 +16,12 @@
 :sectlinks:
 :sectanchors:
 :lang: en
-:revremark: Copyright (c) 2019 Haulmont (www.haulmont.com)
+:revremark: Copyright (c) 2020 Haulmont (www.haulmont.com)
 :idea-version: 2018.3
 :version-label: Version
 :plugin-version: 2.5
-:main_man_url: https://doc.cuba-platform.com/manual-7.1
-:rel_notes_url: http://files.cuba-platform.com/cuba/release-notes/7.1
+:main_man_url: https://doc.cuba-platform.com/manual-7.2
+:rel_notes_url: http://files.cuba-platform.com/cuba/release-notes/7.2
 :revnumber: 2.5
 :sectnums:
 
@@ -1440,3 +1440,15 @@ Fill in the required fields and click *Add* to confirm the creation of a new att
     <security:http-firewall ref="httpFirewall"/>
 </beans>
 ----
+
+
+= Release notes
+
+2.5.0::
+- Support CUBA 7.2.x platform
+
+2.4.1::
+- WD-734 Error on saving documents in the Libreoffice
+
+2.4.0::
+- Support CUBA 7.1.x platform
