@@ -582,6 +582,12 @@ entities are created. The same set of access rights is available to a user for w
 If it is required to restrict a particular user to edit or read document versions, this can be done by changing permissions
 applicable to a user role. Find out more https://doc.cuba-platform.com/manual-latest/roles.html[here].
 
+==== WebDAV basic roles
+
+* *WebDAV basic role* - basic WebDAV role which allow access for all WebDAV related entities
+* *WebDAV documents role* - role which allow access to WebDAV documents browser
+* *WebDAV migration role* - role which allow access to WebDAV documents migration browser
+
 ==== WebdavDocument Access Restrictions
 
 Let us consider the following example. There is the 'Clients' role created in the system and it is necessary to restrict
