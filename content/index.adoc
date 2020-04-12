@@ -34,6 +34,27 @@ CUBA WebDAV Add-on provides the following functionalities:
 At the same time, the component supports work with documents having versioning both enabled and disabled.
 * Granting and restricting access to certain documents.
 
+[[release_notes]]
+== Release Notes
+
+[discrete]
+[[release_2_5_0]]
+=== Release 2.5.0
+
+- Support CUBA 7.2.x platform
+
+[discrete]
+[[release_2_4_1]]
+=== Release 2.4.1
+
+- WD-734 Error on saving documents in the Libreoffice
+
+[discrete]
+[[release_2_4_0]]
+=== Release 2.4.0
+
+- Support CUBA 7.1.x platform
+
 [[getting-started]]
 == Getting Started
 
@@ -1446,15 +1467,3 @@ Fill in the required fields and click *Add* to confirm the creation of a new att
     <security:http-firewall ref="httpFirewall"/>
 </beans>
 ----
-
-
-= Release notes
-
-2.5.0::
-- Support CUBA 7.2.x platform
-
-2.4.1::
-- WD-734 Error on saving documents in the Libreoffice
-
-2.4.0::
-- Support CUBA 7.1.x platform
