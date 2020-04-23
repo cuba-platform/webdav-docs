@@ -38,6 +38,13 @@ At the same time, the component supports work with documents having versioning b
 == Release Notes
 
 [discrete]
+[[release_2_5_2]]
+=== Release 2.5.2
+
+- WD-754 Create predefined WebDav roles
+- WD-753 Add credits file
+
+[discrete]
 [[release_2_5_0]]
 === Release 2.5.0
 
