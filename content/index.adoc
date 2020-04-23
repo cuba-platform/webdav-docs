@@ -34,6 +34,34 @@ CUBA WebDAV Add-on provides the following functionalities:
 At the same time, the component supports work with documents having versioning both enabled and disabled.
 * Granting and restricting access to certain documents.
 
+[[release_notes]]
+== Release Notes
+
+[discrete]
+[[release_2_5_2]]
+=== Release 2.5.2
+
+- WD-754 Create predefined WebDav roles
+- WD-753 Add credits file
+
+[discrete]
+[[release_2_5_0]]
+=== Release 2.5.0
+
+- Support CUBA 7.2.x platform
+
+[discrete]
+[[release_2_4_1]]
+=== Release 2.4.1
+
+- WD-734 Error on saving documents in the Libreoffice
+
+[discrete]
+[[release_2_4_0]]
+=== Release 2.4.0
+
+- Support CUBA 7.1.x platform
+
 [[getting-started]]
 == Getting Started
 
@@ -581,6 +609,12 @@ entities are created. The same set of access rights is available to a user for w
 
 If it is required to restrict a particular user to edit or read document versions, this can be done by changing permissions
 applicable to a user role. Find out more https://doc.cuba-platform.com/manual-latest/roles.html[here].
+
+==== WebDAV basic roles
+
+* *WebDAV basic role* - basic WebDAV role which allow access for all WebDAV related entities
+* *WebDAV documents role* - role which allow access to WebDAV documents browser
+* *WebDAV migration role* - role which allow access to WebDAV documents migration browser
 
 ==== WebdavDocument Access Restrictions
 
@@ -1440,15 +1474,3 @@ Fill in the required fields and click *Add* to confirm the creation of a new att
     <security:http-firewall ref="httpFirewall"/>
 </beans>
 ----
-
-
-= Release notes
-
-2.5.0::
-- Support CUBA 7.2.x platform
-
-2.4.1::
-- WD-734 Error on saving documents in the Libreoffice
-
-2.4.0::
-- Support CUBA 7.1.x platform
