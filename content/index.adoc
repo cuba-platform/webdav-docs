@@ -211,9 +211,7 @@ xmlns:wd="http://schemas.haulmont.com/webdav/ui-component.xsd"
 Following fields can be used to manage WebDAV documents:
 
 - `webdav-document-upload` - field for WebDAV document
-- `webdav-document-upload` - field for FileDescriptor
-
-
+- `file-descriptor-upload` - field for FileDescriptor
 
 [[links]]
 === Links
@@ -752,7 +750,7 @@ The service is used for changing a user password.
 and editing documents using Microsoft Office Apps. Also, if versioning is supported for a document, the user
 can see all versions of a document.
 
-*Component XML-name*: document-link.
+*Component XML name*: `document-link`.
 
 image::document-link.png[]
 
@@ -868,7 +866,7 @@ WebdavDocumentLink documentLink = componentsFactory.createComponent(WebdavDocume
 `WebdavDocumentVersionLink` is a CUBA Platform UI component that enables to open a particular document version
 using Microsoft Office Apps in read only mode. The component displays a file name of a certain document version.
 
-*Component XML-name*: document-version-link.
+*Component XML name*: `document-version-link`.
 
 image::document-version-link.png[]
 
@@ -983,7 +981,7 @@ WebdavDocumentVersionLink documentVersionLink = componentsFactory.createComponen
 
 `WebdavDocumentUploadField` is a CUBA Platform UI component which is designed to work with documents.
 
-*Component XML-name*: upload.
+*Component XML name*: `webdav-document-upload`.
 
 The component features the following functionalities:
 
@@ -1034,7 +1032,7 @@ example above, the name space is determined by the word 'webdav'.
    <layout …>
    ...
 
-       <webdav:w-upload id="webdavUpload"
+       <webdav:webdav-document-upload id="webdavUpload"
                         datasource="contractsDs"
                         property="fileDescriptor"/>
 
