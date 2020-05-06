@@ -30,8 +30,8 @@
 CUBA WebDAV Add-on provides the following functionalities:
 
 * Editing and viewing documents using desktop versions of external applications (MS Word, MS Excel, etc.).
-* Document version control. After updating a document, a new version of it is created on the server side.
-At the same time, the component supports work with documents having versioning both enabled and disabled.
+* Document version control. After the document is updated, a new version is created on the server side.
+At the same time, the component supports working with documents having both enabled and disabled versioning.
 * Granting and restricting access to certain documents.
 
 [[release_notes]]
@@ -41,33 +41,33 @@ At the same time, the component supports work with documents having versioning b
 [[release_2_5_2]]
 === Release 2.5.2
 
-- WD-754 Create predefined WebDav roles
-- WD-753 Add credits file
+- <<predefined-roles>> were created.
+- Credits file was added.
 
 [discrete]
 [[release_2_5_0]]
 === Release 2.5.0
 
-- Support CUBA 7.2.x platform
+- Support for CUBA Platform 7.2.x.
 
 [discrete]
 [[release_2_4_1]]
 === Release 2.4.1
 
-- WD-734 Error on saving documents in the Libreoffice
+- Fixed error on saving documents in the Libreoffice.
 
 [discrete]
 [[release_2_4_0]]
 === Release 2.4.0
 
-- Support CUBA 7.1.x platform
+- Support for CUBA Platform 7.1.x.
 
 [[getting-started]]
 == Getting Started
 
 === Minimal Requirements
 
-The minimum version of Microsoft Office required for opening documents via the WebDav protocol is MS Office 2010 SP2, or higher. The minimum version of LibreOffice is 6.3.
+The minimum version of Microsoft Office required for opening documents via the WebDAV protocol is MS Office 2010 SP2 or higher. The minimum version of LibreOffice is 6.3.
 
 To check which versions of Microsoft Office and Service Pack (SP) are installed on your computer, launch MS Word and open
 the Product Information section from *File → Help*.
@@ -141,74 +141,79 @@ image::continue.png[]
 [[https]]
 === HTTPS
 
-By default, the component uses basic authentication. Basic authentication requires an encrypted connection (https). Example settings for Tomcat can be found, for example, https://dzone.com/articles/setting-ssl-tomcat-5-minutes[here].
+By default, the component uses basic authentication. Basic authentication requires an encrypted connection (https). Example settings for Tomcat can be found https://dzone.com/articles/setting-ssl-tomcat-5-minutes[here].
 
 === Enabling Component
 
-Installing the Webdav component to the system, which is already in production use, does not entail any visible changes in the application behavior.
+Installing the WebDAV component to the system, which is already in production use, does not entail any visible changes in the application behavior.
 
 The component functionalities are available only for fields of the FileDescriptor and WebdavDocument types.
 To enable them, use one (or several if required) of the options provided below:
 
 * Enabling the functionalities for all fields of the FileDescriptor type.
-** Set the value of the `webdav.enabled` property to `true`. After this, WebDAV will be enabled for all fields of the FileDescriptor type (for more information, refer to <<appendix-a-application-properties>>.
++
+Set the value of the `webdav.enabled` property to `true`. After this, WebDAV will be enabled for all fields of the FileDescriptor type (for more information, refer to <<appendix-a-application-properties>>).
++
 * Enabling the functionalities for particular fields using the `@WebdavSupport` annotation.
-
-*Note*: Using this option allows enabling Webdav only for fields of the FileDescriptor type. However, versioning can be enabled for fields of both FileDescriptor and WebdavDocument types.
-
++
+[TIP]
+====
+Using this option allows enabling WebDAV only for fields of the FileDescriptor type. However, versioning can be enabled for fields of both FileDescriptor and WebdavDocument types.
+====
++
 [source,java]
 ----
-    @Table(name = "CONTRACTSYSTEM_CONTRACT")
-    @Entity(name = "contractsystem$Contract")
-    public class Contract extends StandardEntity {
-       // ...
+@Table(name = "CONTRACTSYSTEM_CONTRACT")
+@Entity(name = "contractsystem$Contract")
+public class Contract extends StandardEntity {
+    // ...
 
-       @WebdavSupport
-       @ManyToOne(fetch = FetchType.LAZY)
-       @JoinColumn(name = "DOCUMENT_ID")
-       protected FileDescriptor document;
+    @WebdavSupport
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DOCUMENT_ID")
+    protected FileDescriptor document;
 
-       // ...
-    }
+    // ...
+}
 ----
-
-* Enabling the functionalities for fields of the WebdavDocument type. To learn how to create attributes of the WebdavDocument
-type, please refer to <<appendix-d-creating-attributes-of-the-webdavdocument-type>>.
-
++
+* Enabling the functionalities for fields of the WebdavDocument type. To learn how to create attributes of the WebdavDocument type, please refer to <<appendix-d-creating-attributes-of-the-webdavdocument-type>>.
++
 [source,java]
 ----
-    @Table(name = "CONTRACTSYSTEM_CONTRACT")
-    @Entity(name = "contractsystem$Contract")
-    public class Contract extends StandardEntity {
-       // ...
+@Table(name = "CONTRACTSYSTEM_CONTRACT")
+@Entity(name = "contractsystem$Contract")
+public class Contract extends StandardEntity {
+    // ...
 
-       @ManyToOne(fetch = FetchType.LAZY)
-       @JoinColumn(name = "DOCUMENT_ID")
-       protected WebdavDocument document;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DOCUMENT_ID")
+    protected WebdavDocument document;
 
-       // ...
-    }
+    // ...
+}
 ----
 
 The figure below shows how the *Document field* is displayed when the component functionalities are enabled.
 
 image::webdav-example.png[]
 
-*Note*: After enabling the WebDav component, its functionalities are available only when working with freshly-created objects.
-To apply the changes to previously created objects, it is required to migrate the data (for more details,
-see <<data-migration>>).
+[TIP]
+====
+After enabling the WebDAV component, its functionalities are available only when working with freshly-created objects. To apply changes to the previously created objects, it is required to migrate the data. For more details, see <<data-migration>>.
+====
 
 Before using the component, check that all application properties are configured properly. For more information, get
 acquainted with <<appendix-a-application-properties>>.
 
-If you want to use WebDAV fields in the CUBA `<form>` element then you need to add WebDAV component scheme to your screen XML file
+If you want to use WebDAV fields in the CUBA `form` element, you need to add WebDAV component scheme to your screen XML file:
 
 [source,xml]
 ----
-xmlns:wd="http://schemas.haulmont.com/webdav/ui-component.xsd"
+xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd"
 ----
 
-Following fields can be used to manage WebDAV documents:
+The following fields can be used to manage WebDAV documents:
 
 - `webdav-document-upload` - field for WebDAV document
 - `file-descriptor-upload` - field for FileDescriptor
@@ -216,9 +221,7 @@ Following fields can be used to manage WebDAV documents:
 [[links]]
 === Links
 
-The component enables to receive a link to a document, which can be published on a web-portal or passed to third
-parties. When opening the link, your browser requests credentials for accessing the document / document
-version. After successful authorization, the document/version is opened in a desktop version of an external application.
+The component enables you to receive a link to a document, which can be published on a web-portal or passed to third parties. When opening the link, your browser requests credentials for accessing the document/document version. After successful authorization, the document/version is opened in a desktop version of an external application.
 
 == Component Features
 
@@ -227,13 +230,12 @@ version. After successful authorization, the document/version is opened in a des
 [[webdavsupport-annotation]]
 ==== WebdavSupport Annotation
 
-The `@WebdavSupport` annotation defines whether the component functionality is enabled for a particular field. The
-annotation can be specified for fields of the FileDescriptor and WebdavDocument types.
+The `@WebdavSupport` annotation defines whether the component functionality is enabled for a particular field. The annotation can be specified for fields of the FileDescriptor and WebdavDocument types.
 
 **Parameters**:
 
-* versioning - enables versioning support for a particular field.
-* enabled - disables/enables the component functionalities for a field. Note that this parameter is notapplicable to fields of the WebdavDocument type.
+* `versioning` - enables versioning support for a particular field.
+* `enabled` - disables/enables the component functionalities for a field. Note that this parameter is notapplicable to fields of the WebdavDocument type.
 
 ==== Examples
 
@@ -278,8 +280,7 @@ public class Contract extends StandardEntity {
 [[document-version-manager]]
 ==== Document Version Manager
 
-Document Version Manager provides a number of functionalities for maintaining document versions. This functionality
-is supported only if versioning is enabled for a document.
+Document Version Manager provides a number of functionalities for maintaining document versions. This functionality is supported only if versioning is enabled for a document.
 
 There are two possible modes of working with the screen: editing and read only.
 
@@ -294,19 +295,11 @@ image::document-versions-window.png[]
 When editing is enabled, *Document Version Manager* supports the following operations:
 
 1. *Creating a new document version*. Clicking *Upload* allows selecting files to upload to the system.
-This can also be done by dragging and dropping a required file to the DropZone. After that, uploaded files are numerated
-in accordance with the number of the latest document version. Numbers of new versions are tagged with the _*_ symbol.
-This means that they have been uploaded but are not linked to a document yet. Thus, version numbers
-can be updated after saving the changes. If the dialog window is closed without saving, then all versions tagged
-with _*_ will be removed after launching the <<webdavdocumentversionscleaner>>.
+This can also be done by dragging and dropping a required file to the DropZone. After that, uploaded files are numbered in accordance with the number of the latest document version. Numbers of new versions are tagged with the _*_ symbol. This means that they have been uploaded but are not linked to a document yet. Thus, version numbers can be updated after saving the changes. If the dialog window is closed without saving, then all versions tagged with _*_ will be removed after launching the <<webdavdocumentversionscleaner>>.
 +
 image::document-versions-window-drag-and-drop.png[]
 +
-2. *Creating a new document version based on another one*. Selecting a document version and clicking the *Copy to head* button enables to copy and numerate it in accordance with the number of the latest document version.
-Numbers of new versions are tagged with the _*_ symbol.
-This means that they have been uploaded but are not linked to a document yet. Thus, version numbers
-can be updated after saving the changes. If the dialog window is closed without saving, then all versions tagged
-with _*_ will be removed after launching the <<webdavdocumentversionscleaner>>.
+2. *Creating a new document version based on another one*. Selecting a document version and clicking the *Copy to head* button enables copying and numerating it in accordance with the number of the latest document version. Numbers of new versions are tagged with the _*_ symbol. This means that they have been uploaded but are not linked to a document yet. Thus, version numbers can be updated after saving the changes. If the dialog window is closed without saving, then all versions tagged with _*_ will be removed after launching the <<webdavdocumentversionscleaner>>.
 +
 image::document-versions-window-copy-to-head.png[]
 +
@@ -314,35 +307,26 @@ image::document-versions-window-copy-to-head.png[]
 sent to the database.
 Use the *Refresh* button to update the list of document versions shown in Document Version Manager.
 +
-*Note*: Clicking *Refresh* deletes all unsaved document versions. Thus, if some document version
-was copied and not saved, then the changes are discarded.
+[TIP]
+====
+Clicking *Refresh* deletes all unsaved document versions. Thus, if some document version was copied and not saved, then the changes are discarded.
+====
 +
 4. *Opening a document for reading (read only)*. To open a document for reading, it is required to click a link with a file name.
 
-5. *Downloading a ZIP-archive with one or several document versions*. The *Download* button contains two options for
-downloading selected documents/versions. The first option allows downloading documents as separate files.
-The *Download as ZIP* option enables to send all selected documents to a ZIP-archive and download it.
-For the sake of convenience, file names contain -v suffixes with corresponding version numbers, e.g. example-v3.docx,
-document-v1.docx.
+5. *Downloading a ZIP archive with one or several document versions*. The *Download* button contains two options for downloading selected documents/versions. The first option allows downloading documents as separate files. The *Download as ZIP* option enables sending all selected documents to the ZIP archive and downloading it. For the sake of convenience, file names contain -v suffixes with corresponding version numbers, e.g. example-v3.docx, document-v1.docx.
 
 ==== Conflict Resolution Policies
 
-There are several policies intended to resolve conflicts, which may occur when collaborate editing a document.
-By default, RejectMergePolicy is applied.
+There are several policies intended to resolve conflicts, which may occur when collaborate editing a document. By default, RejectMergePolicy is applied.
 
-Let us consider an example of how these policies can be helpful. For instance, two users simultaneously opened the same document in
-Document Version Manager and added a bunch of new versions. The first user finished working with his/her versions
-and saved the changes. After that, the second user did the same and, at that moment, the database contained
-versions created by both the first and the second user.
-However, each user can see only his/her versions in Document Version Manager.
+Let us consider an example of how these policies can be helpful. For instance, two users simultaneously opened the same document in Document Version Manager and added a bunch of new versions. The first user finished working with their versions and saved the changes. After that, the second user did the same and, at that moment, the database contained versions created by both the first and the second user. However, each user can see only their versions in Document Version Manager.
 
-This situation may cause issues with ordering and saving these conflicting document versions.
-In order to resolve the conflicts, the policies mentioned below can be used.
+This situation may cause issues with ordering and saving these conflicting document versions. In order to resolve the conflicts, the policies mentioned below can be used.
 
 *RebaseMergePolicy*
 
-RebaseMergePolicy allows putting new versions of a document after the ones, which already exist in the database.
-New versions are numbered in accordance with the number of the latest document version existing in the database.
+RebaseMergePolicy allows putting new versions of a document after the ones, which already exist in the database. New versions are numbered in accordance with the number of the latest document version existing in the database.
 
 Let us return to our example: two users opened the same document in Document Version Manager.
 
@@ -352,8 +336,7 @@ The first user added a new document version.
 
 image::conflict-user1-added-new-version.png[]
 
-After that, the second user also added a new version and saved the changes. After saving, this version is shown as the
-third one and we can see the version created by the first user as well.
+After that, the second user also added a new version and saved the changes. After saving, this version is shown as the third one and we can see the version created by the first user as well.
 
 image::conflict-user2-added-new-version.png[]
 
@@ -363,8 +346,7 @@ If document versions have changed when working in Document Version Manager, then
 
 *CancelTheirMergePolicy*
 
-If document versions have changed when working in Document Version Manager, then all versions marked with _*_ are saved
-instead of the ones added in Document Version Manager.
+If document versions have changed when working in Document Version Manager, then all versions marked with _*_ are saved instead of the ones added in Document Version Manager.
 
 *RejectMergePolicy*
 
@@ -372,47 +354,43 @@ If a conflict occurs, the corresponding warning is displayed and all new version
 
 ==== Overriding Default Conflict Resolution Policy
 
-If it is required to change the system behavior regarding conflicts, the following steps should be taken.
-Each step is illustrated with code samples describing how to change the default policy to RejectPolicyMergePolicy.
+If it is required to change the system behavior regarding conflicts, the following steps should be taken. Each step is illustrated with code samples describing how to change the default policy to RejectPolicyMergePolicy.
 
-1. Create a custom `DataSupplier` class inherited from `WebdavDataSupplier` and override the `getDefaultMergePolicy` method
-so that it returned an instance of a policy class.
+1. Create a custom `DataSupplier` class inherited from `WebdavDataSupplier` and override the `getDefaultMergePolicy` method so that it returned an instance of a policy class.
 +
 [source,java]
 ----
-    public class RejectDataSupplier extends WebdavDataSupplier {
+public class RejectDataSupplier extends WebdavDataSupplier {
 
-       @Override
-       protected MergePolicy<WebdavDocumentVersion> getDefaultMergePolicy() {
-           return new RejectMergePolicy<>();
-       }
+    @Override
+    protected MergePolicy<WebdavDocumentVersion> getDefaultMergePolicy() {
+        return new RejectMergePolicy<>();
     }
+}
 ----
 +
-2. Create a screen inherited from `webdav-show-document-version-edit.xml` and override it. Specify the previously created
-`DataSupplier` class in the descriptor.
+2. Create a screen inherited from `webdav-show-document-version-edit.xml` and override it. Specify the previously created `DataSupplier` class in the descriptor.
 +
 [source,xml]
 ----
-    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-    <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
-           dataSupplier="com.haulmont.contractsystem.data.RejectDataSupplier"
-           extends="com/haulmont/webdav/web/screens/documentversion/webdav-show-document-version-edit.xml">
-       <layout/>
-    </window>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        dataSupplier="com.haulmont.contractsystem.data.RejectDataSupplier"
+        extends="com/haulmont/webdav/web/screens/documentversion/webdav-show-document-version-edit.xml">
+    <layout/>
+</window>
 ----
 +
 3. Add the screen with the `webdav$WebdavShowDocumentVersion.edit` identifier to the menu.
 +
 [source,xml]
 ----
-    <screen id="webdav$WebdavShowDocumentVersion.edit"
-               template="com/haulmont/contractsystem/web/screens/ext-webdav-document-version-edit.xml"/>
+<screen id="webdav$WebdavShowDocumentVersion.edit"
+            template="com/haulmont/contractsystem/web/screens/ext-webdav-document-version-edit.xml"/>
 ----
 +
-
 As a result, when a conflict occurs, the `WebdavRejectMergePolicyException` is thrown and the corresponding message is shown.
-
++
 image::conflict-reject-merge-policy.png[]
 
 [[data-migration]]
@@ -420,9 +398,9 @@ image::conflict-reject-merge-policy.png[]
 
 ==== Data Migration Overview
 
-WebDav functionalities are unavailable for already existing data until it is migrated.
+WebDAV functionalities are unavailable for already existing data until it is migrated.
 
-For example, let us enable WebDav for the `document` attribute of the Contract entity using the `@WebdavSupport` annotation
+For example, let us enable WebDAV for the `document` attribute of the Contract entity using the `@WebdavSupport` annotation
 (see <<webdavsupport-annotation>>).
 
 [source,java]
@@ -447,49 +425,45 @@ public class Contract extends StandardEntity {
 As it can be seen from the figure below, the *Migration is required* notification is displayed instead of links.
 This happens because after enabling or disabling the component, all previously created entities require migration.
 During the migration process, new instances of WebdavDocumentVersion and WebdavDocument are created for each document.
-And if it is skipped, then it is impossible to edit the 'document' attribute because it is considered related to the
-entity, which is not migrated yet.
+And if it is skipped, then it is impossible to edit the 'document' attribute because it is considered related to the entity, which is not migrated yet.
 
 image::migration/migration-1-1.png[]
 
-*Note*: There is no need to migrate freshly-created entities.
+[TIP]
+====
+There is no need to migrate freshly-created entities.
+====
 
-The data migration process  can be executed from *Migration Screen* (Menu: Administration → WebDAV → Migration Screen).
-On the screen, there is a list of entity attributes, which support WebDav (attributes of the
-FileDescriptor and WebdavDocument types). All listed attributes are grouped into entity packages.
+The data migration process  can be executed from *Migration Screen* (Menu: Administration → WebDAV → Migration Screen). On the screen, there is a list of entity attributes, which support WebDAV (attributes of the FileDescriptor and WebdavDocument types). All listed attributes are grouped into entity packages.
 
-*Attention*: It is highly recommended to back up the existing database before launching the migration process.
+[WARNING]
+====
+It is highly recommended to back up the existing database before launching the migration process.
+====
 
-*Warning*: Entities, which belong to the basic `com.haulmont.cuba` package, are included in the list on *Migration Screen*
-so that their further extension and use of `@WebDavSupport` was possible. If you do not extend these entities and/or
-screens related to them, please do not select them for migration.
+[WARNING]
+====
+Entities, which belong to the basic `com.haulmont.cuba` package, are included in the list on *Migration Screen* so that their further extension and use of `@WebDavSupport` was possible. If you do not extend these entities and/or screens related to them, please do not select them for migration.
+====
 
-To start migration, it is necessary to select the required fields/entities, for which WebDav or versioning
-was enabled/disabled and click the *Do migration* button.
-Once the migration process is finished, a system message containing a list of entities that were created / updated / deleted
-appears. If some entities were not found, the 'No data for migration' notification is shown. If some fields require removal
-of WebdavDocument entities, then a corresponding message is displayed.
+To start migration, it is necessary to select the required fields/entities, for which WebDAV or versioning was enabled/disabled and click the *Do migration* button. Once the migration process is finished, a system message containing a list of entities that were created / updated / deleted appears. If some entities were not found, the 'No data for migration' notification is shown. If some fields require removal of WebdavDocument entities, then a corresponding message is displayed.
 
 Data migration is required in the following cases:
 
-1. *Enabling/disabling WebDav*. If WebDav is enabled for attributes of one or several entities, then during
-migration, new instances of `WebdavDocumentVersion` and `WebdavDocument` are created for attributes of the FileDescriptor type.
-Created entities may have versioning enabled or disabled. It depends on the annotation value and a global parameter.
-If some field has WebDav disabled, then instances of `WebdavDocumentVersion` and `WebdavDocument` are deleted.
+1. *Enabling/disabling WebDav*. If WebDAV is enabled for attributes of one or several entities, then during migration, new instances of `WebdavDocumentVersion` and `WebdavDocument` are created for attributes of the FileDescriptor type. Created entities may have versioning enabled or disabled. It depends on the annotation value and a global parameter. If some field has WebDAV disabled, then instances of `WebdavDocumentVersion` and `WebdavDocument` are deleted.
 
-2. *Enabling/disabling versioning*. Launching the migration after enabling/disabling versioning updates the existing
-instances of `WebdavDocument` for fields of one or several entities.
+2. *Enabling/disabling versioning*. Launching the migration after enabling/disabling versioning updates the existing instances of `WebdavDocument` for fields of one or several entities.
 
-*Note*: Attributes of the FileDescriptor type store the first versions of documents. After disabling WebDav
-and launching migration, values of these fields are changed to the latest document versions.
-Another important moment is that it is impossible to disable WebDav for attributes of the WebdavDocument type (only versioning
-can be disabled).
+[TIP]
+====
+Attributes of the FileDescriptor type store the first versions of documents. After disabling WebDav and launching migration, values of these fields are changed to the latest document versions. Another important moment is that it is impossible to disable WebDAV for attributes of the WebdavDocument type (only versioning can be disabled).
+====
 
 In the sections below, you can find two examples of data migration: after enabling and disabling WebDav.
 
 *Data Migration After Enabling WebDav*
 
-The first example describes the process of migrating data after enabling WebDav for the 'document' attribute of the Contract entity.
+The first example describes the process of migrating data after enabling WebDAV for the 'document' attribute of the Contract entity.
 
 [source,java]
 ----
@@ -510,9 +484,7 @@ public class Contract extends StandardEntity {
 
 ----
 
-Let's imagine that there are several instances of the Contract entity, which were created before enabling WebDav.
-For the sake of convenience, we add `WebdavDocumentLink` for each instance of 'document' in *Contract Browser*.
-For example, this can be done by using generated columns.
+Let's imagine that there are several instances of the Contract entity, which were created before enabling WebDav. For the sake of convenience, we add `WebdavDocumentLink` for each instance of 'document' in *Contract Browser*. For example, this can be done by using generated columns.
 
 [source,java]
 ----
@@ -533,33 +505,25 @@ As it can be seen from the figure below, there are no restrictions applied to ne
 
 image::migration/migration-1-3.png[]
 
-Now, let's open *Migration Screen* (Menu: Administration → Webdav → Migration screen) and select the *document* field
-related to the Contract entity for migration.
+Now, let's open *Migration Screen* (Menu: Administration → WebDAV → Migration screen) and select the *document* field related to the Contract entity for migration.
 
 image::migration/migration-1-4.png[]
 
-Launching migration is available by clicking the *Migrate* button. Once the process is completed, the system displays its
-results.
+Launching migration is available by clicking the *Migrate* button. Once the process is completed, the system displays its results.
 
 image::migration/migration-1-5.png[]
 
-As we can see, three instances of WebdavDocument which have versioning enabled were created. If we open *Contract Browser*
-again, we can see that after migration, all required links are present.
+As we can see, three instances of WebdavDocument which have versioning enabled were created. If we open *Contract Browser* again, we can see that after migration, all required links are present.
 
 image::migration/migration-1-6.png[]
 
 ==== Data Migration After Disabling WebDav
 
-Having the previous example in consideration, let's check how migration affects fields, for which WebDav has been disabled.
-We will use the same Contract entity. Let's assume that there are several WebDav entities linked to the 'document' field,
-which were created before. To get a full picture of how the migration process works in this case,
-let's upload a new document version for the `Contract #3` entity — `New contract #3.docx`.
+Having the previous example in consideration, let's check how migration affects fields, for which WebDAV has been disabled. We will use the same Contract entity. Let's assume that there are several WebDAV entities linked to the 'document' field, which were created before. To get a full picture of how the migration process works in this case, let's upload a new document version for the `Contract #3` entity — `New contract #3.docx`.
 
 image::migration/migration-2-1.png[]
 
-The next step is to remove the `@WebdavSupport` annotation for the 'document' field of the Contract entity by selecting
-the field on *Migration Screen* and launching migration. The system shows the *Confirmation* dialog
-window saying that all WebdavDocument entities corresponding to the selected field will be removed.
+The next step is to remove the `@WebdavSupport` annotation for the 'document' field of the Contract entity by selecting the field on *Migration Screen* and launching migration. The system shows the *Confirmation* dialog window saying that all WebdavDocument entities corresponding to the selected field will be removed.
 
 image::migration/migration-2-2.png[]
 
@@ -567,12 +531,11 @@ After confirming the operation, the migration process results are displayed.
 
 image::migration/migration-2-3.png[]
 
-During the migration process, WebDav documents were deleted and FileDescriptor was updated to the latest version for one entity .
-If we open *Contract Browser* again, we can see that all links are disabled.
+During the migration process, WebDAV documents were deleted and FileDescriptor was updated to the latest version for one entity. If we open *Contract Browser* again, we can see that all links are disabled.
 
 image::migration/migration-2-4.png[]
 
-If we open the New Contract entity in *Contract Editor*, we can see the latest document version.
+If we open the New Contract entity in the *Contract Editor*, we can see the latest document version.
 
 image::migration/migration-2-5.png[]
 
@@ -596,34 +559,33 @@ image::migration/migration-2-5.png[]
 
 * *Description*: Removes WebdavDocumentVersion instances, which do not have links to documents
 
-*Note*: In order to not remove versions, which are currently being edited, the versions created less than
+[TIP]
+====
+In order to not remove versions, which are currently being edited, the versions created less than
 a day ago (from the current time) are excluded from the task. For instance, if today is 10.02.18, then versions created
 on 09.02.18 00:00 are ignored.
+====
 
 === Security
 
-When enabling the WebDav component, 4 restrictions for creating, reading, updating and removing `WebdavDocumentVersion`
-entities are created. The same set of access rights is available to a user for working with a document and corresponding document versions.
+When enabling the WebDAV component, 4 restrictions for creating, reading, updating and removing `WebdavDocumentVersion` entities are created. The same set of access rights is available to a user for working with a document and corresponding document versions.
 
-If it is required to restrict a particular user to edit or read document versions, this can be done by changing permissions
-applicable to a user role. Find out more https://doc.cuba-platform.com/manual-latest/roles.html[here].
+If it is required to restrict a particular user to edit or read document versions, this can be done by changing permissions applicable to a user role. Find out more https://doc.cuba-platform.com/manual-latest/roles.html[here].
 
-==== WebDAV basic roles
+[[predefined-roles]]
+==== WebDAV Predefined Roles
 
-* *WebDAV basic role* - basic WebDAV role which allow access for all WebDAV related entities
-* *WebDAV documents role* - role which allow access to WebDAV documents browser
-* *WebDAV migration role* - role which allow access to WebDAV documents migration browser
+* *WebDAV basic role* - basic WebDAV role which grants access for all WebDAV related entities.
+* *WebDAV documents role* - grants access to WebDAV documents browser.
+* *WebDAV migration role* - grants access to WebDAV documents migration browser.
 
 ==== WebdavDocument Access Restrictions
 
-Let us consider the following example. There is the 'Clients' role created in the system and it is necessary to restrict
-users with this role to read Webdav documents. For this purpose, configure the 'Clients' role as it is shown in the
-figure below (for more details, refer to https://doc.cuba-platform.com/manual-latest/roles.html[this documentation]).
+Let us consider the following example. There is the 'Clients' role created in the system and it is necessary to restrict users with this role to read WebDAV documents. For this purpose, configure the 'Clients' role as it is shown in the figure below (for more details, refer to https://doc.cuba-platform.com/manual-latest/roles.html[this documentation]).
 
 image::security/sec-1-1.png[]
 
-After this, all users with the 'Clients' role will not be able to use links to Webdav documents — the
-*Migration is required* notification will be displayed.
+After this, all users with the 'Clients' role will not be able to use links to WebDAV documents — the *Migration is required* notification will be displayed.
 
 image::security/sec-1-2.png[]
 
@@ -633,9 +595,7 @@ image::security/sec-1-3.png[]
 
 ==== Usage of Constraints to Restrict Access to WebdavDocument
 
-Another example shows how to restrict access to a particular group of users. Let us consider that there is an access
-group called 'Users'. It is required to configure an access group in such a way that only document authors can edit
-documents / document versions. This can be done by creating a new constraint in Menu: Administration → Access → Constraints.
+Another example shows how to restrict access to a particular group of users. Let us consider that there is an access group called 'Users'. It is required to configure an access group in such a way that only document authors can edit documents / document versions. This can be done by creating a new constraint in Menu: Administration → Access → Constraints.
 
 image::security/sec-2-1.png[]
 
@@ -657,14 +617,11 @@ return document.createdBy == userSession.user.login
 
 image::security/sec-2-2.png[]
 
-
-The system checks whether the current user is a document author. If it is not the case, then the user will not be
-allowed to edit a document and the following notification message will be displayed:
+The system checks whether the current user is a document author. If it is not the case, then the user will not be allowed to edit a document and the following notification message will be displayed.
 
 image::security/sec-2-3.png[]
 
-All buttons intended to manage document versions will be inactive and the document itself will not be saved on the
-server side after opening it in an external application.
+All buttons intended to manage document versions will be inactive and the document itself will not be saved on the server side after opening it in an external application.
 
 image::security/sec-2-4.png[]
 
@@ -675,10 +632,13 @@ Digest auth example can be found in <<appendix-e-digest-authentication-configura
 1. Place the config in the main package in the *web* module, for example:    
 `com/company/app/webdav-dispatcher-spring.xml`
 
-2. Replace default webdav dispatcher config by adding the property with path to new config to `web-app.properties`:
+2. Replace default WebDAV dispatcher config by adding the property with path to new config to `web-app.properties`:
 `webdav.dispatcherSpringContextConfig = com/company/app/webdav-dispatcher-spring.xml`
 
-*Note:* If there are some application users created in the system before activating the WebDav component (e.g. admin), the component functionalities are not available to them. To grant those users access, it is mandatory to change their passwords.
+[TIP]
+====
+If there are some application users created in the system before activating the WebDAV component (e.g. admin), the component functionalities are not available to them. To grant those users access, it is mandatory to change their passwords.
+====
 
 Please see https://doc.cuba-platform.com/manual-latest/users.html[documentation] for more details.
 
@@ -686,23 +646,23 @@ Please see https://doc.cuba-platform.com/manual-latest/users.html[documentation]
 
 === WebdavCredentialsManagementService
 
-It is designed to work with `WebdavCredentials`. The service is used to get credentials of a user with a local
-or {@code viewName} view by a user id / login / user.
+Designed to work with `WebdavCredentials`. The service is used to get credentials of a user with a local
+or {@code viewName} view by a user ID / login / user.
 
 *WebdavCredentials required for Digest Authentication*.
 
 === WebdavDocumentsManagementService
 
-It is designed to work with `WebdavDocument`. The service methods allow you to:
+Designed to work with `WebdavDocument`. The service methods allow you to:
 
-* receive a document by a document / file/ document version id / FileDescriptor id / document id / document version;
+* receive a document by a document / file/ document version ID / FileDescriptor ID / document ID / document version;
 * restrict/grant access to a document for a certain period;
 * create / update / delete a document;
 * create / update / delete versions of a particular document.
 
 === WebdavDocumentVersionsManagementService
 
-The service is used to work with document versions. It enables to:
+The service is used to work with document versions. It enables you to:
 
 * get the first version of a document;
 * receive the latest version of a document;
@@ -712,7 +672,8 @@ The service is used to work with document versions. It enables to:
 
 === WebdavMigrationService
 
-The service methods provide allow executing the following operations:
+The service methods allow executing the following operations:
+
 * executing the migration process;
 * getting the information about classes and properties to be migrated;
 * receiving the information about migration types (can be used only on the middleware level);
@@ -720,7 +681,7 @@ The service methods provide allow executing the following operations:
 
 === WebdavRawLinksManagementService
 
-It is designed to work with persistent links. Persistent links are stored in the database as instances of the WebdavLink entity and they are related to instances of either the WebdavDocument or WebdavDocumentVersion entities. For more details, please refer to the <<links>> section.
+It is designed to work with persistent links. Persistent links are stored in the database as instances of the `WebdavLink` entity and they are related to instances of either the `WebdavDocument` or `WebdavDocumentVersion` entities. For more details, please refer to the <<links>> section.
 
 The service methods allow you to create persistent links to a document with a default / read-only / specific context.
 
@@ -728,15 +689,15 @@ The service methods allow you to create persistent links to a document with a de
 
 The service is used for getting impersistent links to documents. These links are not stored in the database and generated on the go. For more details, please refer to the <<links>> section.
 
-The service enables to execute the following operations:
+The service enables executing the following operations:
 
-* getting a link to a latest document version in full access/read-only mode;
+* getting a link to the latest document version in full access/read-only mode;
 * getting a link to a particular document version in full access/read-only mode;
 * receiving information about an external application used for opening a document version.
 
 === WebdavUserDetailsService
 
-`WebdavUserDetailsService` enables to search for a user by his/her username. In the actual implementation, the search may possibly be case sensitive, or case insensitive, depending on how the implementation instance is configured. In this case, the returned `UserDetails` object may have different a username.
+`WebdavUserDetailsService` enables searching for a user by their username. In the actual implementation, the search may be case sensitive, or case insensitive, depending on how the implementation instance is configured. In this case, the returned `UserDetails` object may have different a username.
 
 === WebdavUserManagementService
 
@@ -746,9 +707,7 @@ The service is used for changing a user password.
 
 === WebdavDocumentLink
 
-`WebdavDocumentLink` is a CUBA Platform UI component that provides the functionality of reading
-and editing documents using Microsoft Office Apps. Also, if versioning is supported for a document, the user
-can see all versions of a document.
+`WebdavDocumentLink` is a CUBA Platform UI component that provides the functionality of reading and editing documents using Microsoft Office Apps. Also, if versioning is supported for a document, a user can see all versions of a document.
 
 *Component XML name*: `document-link`.
 
@@ -763,22 +722,19 @@ The component features the following functionalities:
 
 The component works in the following three modes:
 
-* Webdav is disabled.
-* Webdav is enabled, Versioning is disabled.
-* Webdav is enabled, Versioning is enabled.
+* WebDAV is disabled.
+* WebDAV is enabled, Versioning is disabled.
+* WebDAV is enabled, Versioning is enabled.
 
 |===
-||Webdav is enabled|Webdav is disabled
+||WebDAV is enabled|WebDAV is disabled
 |**Versioning is enabled**|`WebdavDocumentLink` is displayed without any restrictions|In this mode `WebdavDocumentLink` is displayed as an empty element
 |**Versioning is disabled**|`WebdavDocumentLink` does not show a link to the latest document version|In this mode `WebdavDocumentLink` is displayed as an empty element
 |===
 
 ==== Declarative Creation
 
-To use the Webdav components in XML, it is required to specify the `http://schemas.haulmont.com/webdav/ui-component.xsd`
-scheme file in a required screen descriptor. During this step, it is important to specify the name of a name space where
-component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the
-example above, the name space is determined by the word 'webdav'.
+To use the WebDAV components in XML, it is required to specify the `http://schemas.haulmont.com/webdav/ui-component.xsd` scheme file in the required screen descriptor. During this step, it is important to specify the name of a namespace where component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the example below, the namespace is determined by the word `webdav`.
 
 [source,xml]
 ----
@@ -814,17 +770,20 @@ example above, the name space is determined by the word 'webdav'.
 *Attributes*
 
 * `webdavDocumentId` — a unique identifier of WebdavDocument to be displayed.
-* `fileDescriptorId` — an id of FileDescriptor to be displayed. The latest version of a document is shown.
+* `fileDescriptorId` — an ID of FileDescriptor to be displayed. The latest version of a document is shown.
 * `showVersion` — indicates whether a link is shown on the version control screen. The default value of this parameter depends
 on versioning: if it is enabled for a document, then a link is shown.
 * `datasource` — a datasource name to be shown. A link leads to an entity from a datasource.
 * `property` — a name of a property from a datasource. Possible values: WebdavDocument or FileDescriptor.
 
-*Note*: `document-link` are inherited from `linkButton` and contain all parent properties.
+[TIP]
+====
+`document-link` are inherited from `linkButton` and contain all parent properties.
+====
 
 ==== Manual Creation
 
-Use ComponentsFactory to create `WebdavDocumentLink`:
+Use `ComponentsFactory` to create `WebdavDocumentLink`:
 
 [source,java]
 ----
@@ -863,8 +822,7 @@ WebdavDocumentLink documentLink = componentsFactory.createComponent(WebdavDocume
 
 === WebdavDocumentVersionLink
 
-`WebdavDocumentVersionLink` is a CUBA Platform UI component that enables to open a particular document version
-using Microsoft Office Apps in read only mode. The component displays a file name of a certain document version.
+`WebdavDocumentVersionLink` is a CUBA Platform UI component that enables to open a particular document version using Microsoft Office Apps in the read-only mode. The component displays a file name of a certain document version.
 
 *Component XML name*: `document-version-link`.
 
@@ -874,22 +832,19 @@ image::document-version-link.png[]
 
 The component works in the following three modes:
 
-* Webdav is disabled.
-* Webdav is enabled, Versioning is disabled.
-* Webdav is enabled, Versioning is enabled.
+* WebDAV is disabled.
+* WebDAV is enabled, Versioning is disabled.
+* WebDAV is enabled, Versioning is enabled.
 
 |===
-||Webdav is enabled|Webdav is disabled
+||WebDAV is enabled|WebDAV is disabled
 |*Versioning is enabled*|`WebdavDocumentVersionLink` is displayed without any restrictions|In this mode `WebdavDocumentVersionLink` is displayed as an empty element
 |*Versioning is disabled*|`WebdavDocumentVersionLink` is displayed without any restrictions|In this mode `WebdavDocumentVersionLink` is displayed as an empty element
 |===
 
 ==== Declarative Creation
 
-To use the Webdav components in XML, it is required to specify the `http://schemas.haulmont.com/webdav/ui-component.xsd`
-scheme file in a required screen descriptor. During this step, it is important to specify the name of a name space where
-component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the
-example above, the name space is determined by the word 'webdav'.
+To use the WebDAV components in XML, it is required to specify the `http://schemas.haulmont.com/webdav/ui-component.xsd` scheme file in a required screen descriptor. During this step, it is important to specify the name of a namespace where component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the example below, the namespace is determined by the word `webdav`.
 
 [source,xml]
 ----
@@ -924,18 +879,21 @@ example above, the name space is determined by the word 'webdav'.
 
 *Attributes*
 
-* `webdavDocumentVersionId` — an id of WebdavDocumentVersion for displaying.
-* `webdavDocumentId` — an id of WebdavDocumentVersion for displaying. A value can be used only in combination with naturalVersionId.
+* `webdavDocumentVersionId` — an ID of WebdavDocumentVersion for displaying.
+* `webdavDocumentId` — an ID of WebdavDocumentVersion for displaying. A value can be used only in combination with naturalVersionId.
 * `naturalVersionId` — a natural version number. A value can be used only in combination with a document version identifier.
-* `fileDescriptorId` — an id of FileDescriptor to be displayed. The latest version of a document is shown.
+* `fileDescriptorId` — an ID of FileDescriptor to be displayed. The latest version of a document is shown.
 * `datasource` — a datasource name that is used for displaying an entity from a datasource.
 * `property` — a property from a datasource. Possible values: WebdavDocumentVersionLink or FileDescriptor.
 
-*Note*: `document-version-link` are inherited from `linkButton` and contain all parent properties.
+[TIP]
+====
+`document-version-link` are inherited from `linkButton` and contain all parent properties.
+====
 
 ==== Manual Creation
 
-Use ComponentsFactory to create `WebdavDocumentVersionLink`:
+Use `ComponentsFactory` to create `WebdavDocumentVersionLink`:
 
 [source,java]
 ----
@@ -953,9 +911,9 @@ document version.
 * `withFileDescriptorId(UUID fileDescriptorId)` — requires specifying an identifier of `FileDescriptor` related to
 a document version.
 * `withWebdavDocument(WebdavDocument webdavDocument)` — this method has to be combined with `withNaturalVersionId(Long naturalVersionId)`.
-The combination of these two methods allows identifying a document and natural id of a document version.
+The combination of these two methods allows identifying a document and natural ID of a document version.
 * `withWebdavDocumentId(UUID webdavDocumentId)` — this method has to be combined with `withNaturalVersionId(Long naturalVersionId)`.
-The combination of these two methods allows identifying a document and natural id of a document version.
+The combination of these two methods allows identifying a document and natural ID of a document version.
 
 *Configuration Examples*
 
@@ -967,7 +925,7 @@ WebdavDocumentVersionLink documentVersionLink = componentsFactory.createComponen
                                                                  .withDocumentVersion(...);
 ----
 
-Creating a link to a document version using the `WebdavDocument` object and a document version natural id:
+Creating a link to a document version using the `WebdavDocument` object and a document version natural ID:
 
 [source,java]
 ----
@@ -990,26 +948,23 @@ The component features the following functionalities:
 * Downloading the latest or preceding document versions.
 * Creating new document versions based on previous ones.
 
-=== Work Modes
+==== Work Modes
 
 The component works in the following three modes:
 
-* Webdav is disabled.
-* Webdav is enabled, Versioning is disabled.
-* Webdav is enabled, Versioning is enabled.
+* WebDAV is disabled.
+* WebDAV is enabled, Versioning is disabled.
+* WebDAV is enabled, Versioning is enabled.
 
 |===
-||Webdav is enabled|Webdav is disabled
+||WebDAV is enabled|WebDAV is disabled
 |*Versioning is enabled*|`WebdavDocumentUploadField` is displayed without any restrictions|`WebdavDocumentUploadField` cannot be used
 |*Versioning is disabled*|`WebdavDocumentUploadField` does not show a link to the latest document version.|`WebdavDocumentUploadField` cannot be used
 |===
 
 ==== Declarative Creation
 
-To use the Webdav components in XML, it is required to specify the `http://schemas.haulmont.com/webdav/ui-component.xsd`
-scheme file in a required screen descriptor. During this step, it is important to specify the name of a name space where
-component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the
-example above, the name space is determined by the word 'webdav'.
+To use the WebDAV components in XML, it is required to specify the `http://schemas.haulmont.com/webdav/ui-component.xsd` scheme file in the required screen descriptor. During this step, it is important to specify the name of a namespace where component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the example below, the namespace is determined by the word `webdav`.
 
 [source,xml]
 ----
@@ -1047,9 +1002,12 @@ example above, the name space is determined by the word 'webdav'.
 * `showDownloadButton` — indicates if the *Download* button is shown or not. By default, the button is shown only for FieldGroup.
 * `downloadButtonCaption` — a caption of the *Download* button.
 * `downloadButtonIcon` — a custom icon for the *Download* button. If it is set, then the button caption is not shown.
-* `downloadButtonDescription` — a mouse over tooltip for the *Download* button.
+* `downloadButtonDescription` — a mouseover tooltip for the *Download* button.
 
-*Note*: *w-upload* is inherited from *CUBA upload* and contains all parent properties.
+[TIP]
+====
+*w-upload* is inherited from *CUBA upload* and contains all parent properties.
+====
 
 ==== Manual Creation
 
@@ -1067,7 +1025,7 @@ WebdavDocumentUploadField uploadField = componentsFactory.createComponent(Webdav
 uploadField.setDatasource(...);
 ----
 
-=== Using WebDav in FileMultiUploadField
+=== Using WebDAV in FileMultiUploadField
 
 The AppComponent does not contain a UI component similar to `FileMultiUploadField`. However, it is possible to support
 this functionality by configuring the following example from the CUBA https://doc.cuba-platform.com/manual-latest/manual.html#gui_FileMultiUploadField[documentation].
@@ -1124,41 +1082,37 @@ public void init(Map<String, Object> params) {
 
 *webdav.enabled*
 
-* *Description*: enables the component functionalities for all fields (those that do not have the @WebdavSupport annotation)
- related to a document. If a value of this property is changed, a system administrator should migrate the data.
+Enables the component functionalities for all fields (those that do not have the @WebdavSupport annotation) related to a document. If the value of this property is changed, a system administrator should migrate the data.
 
-* *Default value*: `false`
+Default value: `false`
 
-* *Type*: stored in the database
+Stored in the database.
 
-* *Interface*: `WebdavConfig`
+Interface: `WebdavConfig`
 
 *webdav.versioningEnabled*
 
-* *Description*: enables the versioning functionality for all fields
-(those that do not have the @WebdavSupport annotation) related to a document. If a value of this property is changed,
-a system administrator should migrate the data.
+Enables the versioning functionality for all fields (those that do not have the @WebdavSupport annotation) related to a document. If the value of this property is changed, a system administrator should migrate the data.
 
-* *Default value*: `true`
+Default value: `true`
 
-* *Type*: stored in the database
+Stored in the database.
 
-* *Interface*: `WebdavConfig`
+Interface: `WebdavConfig`
 
 *webdav.applications*
 
-* *Description*: allows matching which document formats can be opened via various external applications.
-For each application you can configure a set of file extensions in the `"extensions"` block. For example:
+Allows matching which document formats can be opened via various external applications. For each application you can configure a set of file extensions in the `"extensions"` block. For example:
 
 `"ms-powerpoint":{"name":"Microsoft PowerPoint","protocols":{"writable":"ms-powerpoint:ofe%7Cu%7C","read_only":"ms-powerpoint:ofv%7Cu%7C"},"extensions":["ppt","pptx"]`
 
 Considering the example given above, we can conclude that if the user tries opening a document with the *.ppt extension, it will be opened in Microsoft PowerPoint.
 
-* *Default value*:`{"ms-word":{"name":"Microsoft Word","protocols":{"writable":"ms-word:ofe%7Cu%7C","read_only":"ms-word:ofv%7Cu%7C"},"extensions":["docx","doc","rtf"]},"ms-excel":{"name":"Microsoft Excel","protocols":{"writable":"ms-excel:ofe%7Cu%7C","read_only":"ms-excel:ofv%7Cu%7C"},"extensions":["xls","xlsx"]},"ms-powerpoint":{"name":"Microsoft PowerPoint","protocols":{"writable":"ms-powerpoint:ofe%7Cu%7C","read_only":"ms-powerpoint:ofv%7Cu%7C"},"extensions":["ppt","pptx"]}}`
+Default value: `{"ms-word":{"name":"Microsoft Word","protocols":{"writable":"ms-word:ofe%7Cu%7C","read_only":"ms-word:ofv%7Cu%7C"},"extensions":["docx","doc","rtf"]},"ms-excel":{"name":"Microsoft Excel","protocols":{"writable":"ms-excel:ofe%7Cu%7C","read_only":"ms-excel:ofv%7Cu%7C"},"extensions":["xls","xlsx"]},"ms-powerpoint":{"name":"Microsoft PowerPoint","protocols":{"writable":"ms-powerpoint:ofe%7Cu%7C","read_only":"ms-powerpoint:ofv%7Cu%7C"},"extensions":["ppt","pptx"]}}`
 
-* *Type*: stored in the database
+Stored in the database.
 
-* *Interface*: `WebdavConfig`
+Interface: `WebdavConfig`
 
 Example value for LibreOffice:
 `{"vnd.libreoffice.command":{"name":"LibreOffice","protocols":{"writable":"vnd.libreoffice.command:ofe|u|","read_only":"vnd.libreoffice.command:ofv|u|"},"extensions":["odt", "ods", "odp", "doc", "docx", "xls", "xlsx", "ppt", "pptx"]}}`
@@ -1169,85 +1123,85 @@ Use the application properties described below to configure document downloading
 
 *webdav.useUrlPrefix*
 
-* *Description*: use full url prefix instead of **webdav.server.*** parameters
+Uses full url prefix instead of **webdav.server.*** parameters.
 
-* *Default value:* `true`
+Default value: `true`
 
-* *Type*: stored in the database
+Stored in the database.
 
-* *Interface*: `WebdavConfig`
+Interface: `WebdavConfig`
 
 *webdav.urlPrefix*
 
-* *Description*: prefix for WebDAV document link
+Prefix for WebDAV document link.
 
-* *Default value*: `https://localhost:8443/app/webdav`
+Default value: `https://localhost:8443/app/webdav`
 
-* *Type*: stored in the database
+Stored in the database.
 
-* *Interface*: `WebdavConfig`
+Interface: `WebdavConfig`
 
 *webdav.server.protocol* _(deprecated)_
 
-* *Description*: a server connection protocol
+Server connection protocol.
 
-* *Default value*: `https`
+Default value: `https`
 
-* *Type*: stored in the database
+Stored in the database.
 
-* *Interface*: `WebdavServerConfig`
+Interface: `WebdavServerConfig`
 
-* *Available values*: `http`, `https`
+Available values: `http`, `https`
 
 *webdav.server.hostname* _(deprecated)_
 
-* *Description*: a host name and address
+Host name and address.
 
-* *Default value*: `localhost`
+Default value: `localhost`
 
-* *Type*: stored in the database
+Stored in the database.
 
-* *Interface*: `WebdavServerConfig`
+Interface: `WebdavServerConfig`
 
 *webdav.server.port* _(deprecated)_
 
-* *Description*: a port, on which the server is running
+Port, on which the server is running.
 
-* *Default value*: `8443`
+Default value: `8443`
 
-* *Type*: stored in the database
+Stored in the database.
 
-* *Interface*: `WebdavServerConfig`
+Interface: `WebdavServerConfig`
 
 *webdav.server.modulePrefix* _(deprecated)_
 
-* *Description*: an application address
+Application address.
 
-* *Default value*: `app`
+Default value: `app`
 
-* *Type*: stored in the database
+Stored in the database.
 
-* *Interface*: `WebdavServerConfig`
+Interface: `WebdavServerConfig`
 
 *webdav.server.dispatcherPath* _(deprecated)_
 
-* *Description*: a dispatcher servlet address
+Dispatcher servlet address.
 
-* *Default value*: `webdav`
+Default value: `webdav`
 
-* *Type*: stored in the database
+Stored in the database.
 
-* *Interface*: `WebdavServerConfig`
+Interface: `WebdavServerConfig`
 
-As a result, values of all aforementioned properties form the following address: *https://localhost:8443/app/webdav/*
+As a result, values of all aforementioned properties form the following address: `https://localhost:8443/app/webdav/`
 
 [appendix]
 = Manual Installation
 
 *Adding Repository*
 
-Open the `build.gradle` file and specify the repository URL: https://repo.cuba-platform.com/content/groups/premium
-and your credentials in the `repositories` section.
+Open the `build.gradle` file and specify the premium repository URL according to the main repository. See {main_man_url}/access_to_repo.html#access_to_premium_repo[developer's manual]. Here is the example of adding the https://repo.cuba-platform.com/content/groups/premium
+repository:
 
 [source,java]
 ----
@@ -1276,6 +1230,8 @@ buildscript {
 }
 ----
 
+Then provide the credentials. See the ways of providing credentials in the {main_man_url}/access_to_repo.html#access_to_premium_repo[developer's manual].
+
 *Adding Component*
 
 Open the `build.gradle` file and specify the component artifacts in the `dependencies` section <<appendix-c-compatible-versions>>.
@@ -1287,8 +1243,6 @@ dependencies {
    appComponent("com.haulmont.webdav:webdav-global:2.5.0")
 }
 ----
-
-The following steps you can find in the <<getting-started>> and <<user-access>> sections.
 
 *Adding Component to `web.xml`*
 
