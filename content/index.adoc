@@ -138,6 +138,124 @@ image::continue.png[]
 
 *WebDAV* add-on will be installed in your project.
 
+==== Manual Installation
+
+Use this way of installation in case you build your project from the command line or your subscription does not include Studio Premium Subscription.
+
+*Adding Premium Repository*
+
+Open `build.gradle` file and add one more repository:
+
+* If the main repository is `repo.cuba-platform.com`, add `++https://repo.cuba-platform.com/content/groups/premium++`
++
+[source,java]
+----
+buildscript {
+    // ...
+    repositories {
+        // ...
+        maven {
+            url 'https://repo.cuba-platform.com/content/groups/premium'
+            credentials {
+                username(rootProject.hasProperty('premiumRepoUser') ?
+                        rootProject['premiumRepoUser'] : System.getenv('CUBA_PREMIUM_USER'))
+                password(rootProject.hasProperty('premiumRepoPass') ?
+                        rootProject['premiumRepoPass'] : System.getenv('CUBA_PREMIUM_PASSWORD'))
+            }
+        }
+    }
+}
+----
++
+* If the main repository is Bintray, add `++https://cuba-platform.bintray.com/premium++`
++
+[source,java]
+----
+buildscript {
+    // ...
+    repositories {
+        // ...
+        maven {
+            url 'https://cuba-platform.bintray.com/premium'
+            credentials {
+                username(rootProject.hasProperty('bintrayPremiumRepoUser') ?
+                        rootProject['bintrayPremiumRepoUser'] : System.getenv('CUBA_PREMIUM_USER'))
+                password(rootProject.hasProperty('premiumRepoPass') ?
+                        rootProject['premiumRepoPass'] : System.getenv('CUBA_PREMIUM_PASSWORD'))
+            }
+        }
+    }
+}
+----
+
+*Providing Credentials*
+
+Your license key consists of two parts: the first part before the dash is a repository user name, the part after the dash is a password. For example, if your key is `111111222222-abcdefabcdef`, then the user name is `111111222222` and the password is `abcdefabcdef`. In case of Bintray, the user name must be followed by `@cuba-platform`.
+
+You can provide the credentials in one of the following ways:
+
+* The recommended way is to create a `~/.gradle/gradle.properties` file in your user home directory and set properties in it:
++
+[source]
+----
+premiumRepoUser=111111222222
+bintrayPremiumRepoUser=111111222222@cuba-platform
+premiumRepoPass=abcdefabcdef
+----
++
+* Alternatively, you can specify the credentials in the CUBA_PREMIUM_USER and CUBA_PREMIUM_PASSWORD environment variables.
+* When you run Gradle tasks from the command line, you can also pass the properties as command-line arguments with the `-P` prefix, for example:
++
+[source]
+----
+gradlew assemble -PpremiumRepoUser=111111222222 -PpremiumRepoPass=abcdefabcdef
+----
+
+*Adding Component*
+
+. In the `build.gradle` file specify the component artifacts in the dependencies section as follows:
++
+[source]
+----
+com.haulmont.webdav:webdav-global:<add-on version>
+----
++
+where `<add-on version>` is compatible with the used version of the CUBA platform.
++
+|===
+| Platform Version | Add-on Version
+| 7.2.x            | 2.5.2
+| 7.1.x            | 2.4.0
+| 7.0.x            | 2.3.4
+| 6.10.x           | 2.2.1
+| 6.9.x            | 2.1.0
+| 6.8.x            | 2.0.0
+|===
++
+For example:
++
+[source,java]
+----
+dependencies {
+   //...
+   appComponent("com.haulmont.webdav:webdav-global:2.5.2")
+}
+----
++
+. Specify the add-on identifier `com.haulmont.webdav` in the `web.xml` files of the `core` and `web` modules in the `appComponents` context parameter:
++
+[source,xml]
+----
+<context-param>
+       <param-name>appComponents</param-name>
+       <param-value>com.haulmont.cuba com.haulmont.webdav</param-value>
+</context-param>
+----
++
+. If you run Gradle tasks from the command line run `gradlew assemble`.
+
+The add-on will be included in your project.
+
 [[https]]
 === HTTPS
 
@@ -734,7 +852,7 @@ The component works in the following three modes:
 
 ==== Declarative Creation
 
-To use the WebDAV components in XML, it is required to specify the `http://schemas.haulmont.com/webdav/ui-component.xsd` scheme file in the required screen descriptor. During this step, it is important to specify the name of a namespace where component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the example below, the namespace is determined by the word `webdav`.
+To use the WebDAV components in XML, it is required to specify the `++http://schemas.haulmont.com/webdav/ui-component.xsd++` scheme file in the required screen descriptor. During this step, it is important to specify the name of a namespace where component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the example below, the namespace is determined by the word `webdav`.
 
 [source,xml]
 ----
@@ -844,7 +962,7 @@ The component works in the following three modes:
 
 ==== Declarative Creation
 
-To use the WebDAV components in XML, it is required to specify the `http://schemas.haulmont.com/webdav/ui-component.xsd` scheme file in a required screen descriptor. During this step, it is important to specify the name of a namespace where component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the example below, the namespace is determined by the word `webdav`.
+To use the WebDAV components in XML, it is required to specify the `++http://schemas.haulmont.com/webdav/ui-component.xsd++` scheme file in a required screen descriptor. During this step, it is important to specify the name of a namespace where component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the example below, the namespace is determined by the word `webdav`.
 
 [source,xml]
 ----
@@ -964,7 +1082,7 @@ The component works in the following three modes:
 
 ==== Declarative Creation
 
-To use the WebDAV components in XML, it is required to specify the `http://schemas.haulmont.com/webdav/ui-component.xsd` scheme file in the required screen descriptor. During this step, it is important to specify the name of a namespace where component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the example below, the namespace is determined by the word `webdav`.
+To use the WebDAV components in XML, it is required to specify the `++http://schemas.haulmont.com/webdav/ui-component.xsd++` scheme file in the required screen descriptor. During this step, it is important to specify the name of a namespace where component tags are stored, e.g. `xmlns:webdav="http://schemas.haulmont.com/webdav/ui-component.xsd`. In the example below, the namespace is determined by the word `webdav`.
 
 [source,xml]
 ----
@@ -1135,7 +1253,7 @@ Interface: `WebdavConfig`
 
 Prefix for WebDAV document link.
 
-Default value: `https://localhost:8443/app/webdav`
+Default value: `++https://localhost:8443/app/webdav++`
 
 Stored in the database.
 
@@ -1193,92 +1311,7 @@ Stored in the database.
 
 Interface: `WebdavServerConfig`
 
-As a result, values of all aforementioned properties form the following address: `https://localhost:8443/app/webdav/`
-
-[appendix]
-= Manual Installation
-
-*Adding Repository*
-
-Open the `build.gradle` file and specify the premium repository URL according to the main repository. See {main_man_url}/access_to_repo.html#access_to_premium_repo[developer's manual]. Here is the example of adding the https://repo.cuba-platform.com/content/groups/premium
-repository:
-
-[source,java]
-----
-buildscript {
-   ext.cubaVersion = '7.1.0'
-   repositories {
-       maven {
-           url 'https://repo.cuba-platform.com/content/groups/work'
-           credentials {
-               username(rootProject.hasProperty('repoUser') ? rootProject['repoUser'] : 'cuba')
-               password(rootProject.hasProperty('repoPass') ? rootProject['repoPass'] : 'cuba123')
-           }
-       }
-
-       //The repository, which contains the Webdav component
-       maven {
-           url 'https://repo.cuba-platform.com/content/groups/premium'
-           credentials {
-               username('111111222222')
-               password('xxxxxxxxxxxx')
-           }
-       }
-   }
-
-   ...
-}
-----
-
-Then provide the credentials. See the ways of providing credentials in the {main_man_url}/access_to_repo.html#access_to_premium_repo[developer's manual].
-
-*Adding Component*
-
-Open the `build.gradle` file and specify the component artifacts in the `dependencies` section <<appendix-c-compatible-versions>>.
-
-[source,java]
-----
-dependencies {
-   ...
-   appComponent("com.haulmont.webdav:webdav-global:2.5.0")
-}
-----
-
-*Adding Component to `web.xml`*
-
-After adding the repository and component to the `build.gradle` file, it is necessary to specify the component in the
-`web.xml` files of each module.
-
-[source,java]
-----
-<context-param>
-       <param-name>appComponents</param-name>
-       <param-value>com.haulmont.cuba com.haulmont.webdav</param-value>
-   </context-param>
-----
-
-[[appendix-c-compatible-versions]]
-[appendix]
-= Compatible Versions
-
-The table below provides the information about component versions compatible with the platform version used in your project:
-
-|===
-| Platform Version | Add-on Version
-| 7.2.x            | 2.5.0
-| 7.1.x            | 2.4.0
-| 7.0.x            | 2.3.3
-| 6.10.x           | 2.2.1
-| 6.9.x            | 2.1.0
-| 6.8.x            | 2.0.0
-|===
-
-Example: `com.haulmont.webdav:webdav-global:2.5.0`
-
- * *Artifact group*: com.haulmont.webdav
- * *Artifact name*: webdav-global
- * *Version*: 2.5.0
-
+As a result, values of all aforementioned properties form the following address: `++https://localhost:8443/app/webdav/++`
 
 [[appendix-d-creating-attributes-of-the-webdavdocument-type]]
 [appendix]
