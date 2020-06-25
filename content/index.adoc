@@ -79,42 +79,36 @@ To update your Service Pack, follow this https://www.microsoft.com/ru-RU/downloa
 
 ==== Installation of Trial Version
 
-In case you've got a trial version of the add-on and have a ZIP file with artifacts, follow the instructions. Please ensure you have https://www.cuba-platform.com/download/previous-studio/[Studio] version 12 or newer installed.
+If you do not have a subscription for the add-on, you can install a trial version that is available for 30 days. 
 
-. Create a directory called `repository` in the root directory of your project.
+. Launch https://www.cuba-platform.com/tools/[CUBA Studio]. You can download it from the CUBA website. Please ensure that you have Studio version 13.2 or newer.
 
-. Unzip the file with artifacts into this directory. You should get the following directory structure:
-+
-image::structure.png[]
-+
-. Register the new Maven repository in the `build.gradle` file.
-+
-[source]
-----
-maven {
-    url './repository'
-    }
-----
-+
-image::buildscript.png[]
-+
-. Go to *CUBA -> Marketplace* in the main menu.
+. Go to *CUBA → Marketplace* in the main menu.
 +
 image::main-menu.png[]
 +
-. Click the icon in the upper-right corner.
+. Find the required add-on and click *Try* next to it.
 +
-image::gear.png[]
+image::webdav-trial.png[]
 +
-. Enter coordinates of the latest add-on version. Copy coordinates from the *Component Coordinates* section on the page of the add-on on the https://www.cuba-platform.com/marketplace/webdav/[marketplace].
+. If you are not signed in CUBA Studio yet, click *Sign In* in the appeared window. 
 +
-image::copy-coordinates.png[]
+image::signin-window.png[]
 +
-. Add `.trial` at the end of the coordinates, for example:
+Register or log in on the website. If you were already logged in on the website, proceed to the next step.
 +
-image::coordinates.png[]
+. Read the instructions and click *Install*.
 +
-. Click *OK* and *Apply*. The installation will start.
+image::install-window.png[]
++
+. Click *Apply*. A trial version of the add-on will be installed into your application.
+
+When the trial period is expired, CUBA Studio will inform you. Keep being signed in CUBA Studio to not miss the end of the trial period.
+
+[WARNING]
+====
+Please pay attention that you won't be able to run your application with the expired trial version of the add-on.
+====
 
 ==== Installation of Purchased Add-on
 
@@ -126,7 +120,7 @@ image::marketplace.png[]
 +
 2. Select *Marketplace* tab and find *WebDAV* add-on.
 +
-image::webdav-addon.png[]
+image::webdav-installation.png[]
 +
 3. Click *Install* button and confirm that you have a subscription in the appeared dialog.
 +
@@ -224,7 +218,7 @@ where `<add-on version>` is compatible with the used version of the CUBA platfor
 +
 |===
 | Platform Version | Add-on Version
-| 7.2.x            | 2.5.2
+| 7.2.x            | 2.5.3
 | 7.1.x            | 2.4.0
 | 7.0.x            | 2.3.4
 | 6.10.x           | 2.2.1
