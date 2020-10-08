@@ -38,11 +38,22 @@ At the same time, the component supports working with documents having both enab
 == Release Notes
 
 [discrete]
+[[release_2_5_3]]
+=== Release 2.5.3
+
+Resolved issue:
+
+- WD-755 https://youtrack.haulmont.com/issue/WD-755[Incorrect spring version in 2.5.2 WebDAV add-on]
+
+[discrete]
 [[release_2_5_2]]
 === Release 2.5.2
 
 - <<predefined-roles>> were created.
-- Credits file was added.
+
+Resolved issue:
+
+- WD-753 https://youtrack.haulmont.com/issue/WD-753[Add component credits file]
 
 [discrete]
 [[release_2_5_0]]
@@ -54,7 +65,9 @@ At the same time, the component supports working with documents having both enab
 [[release_2_4_1]]
 === Release 2.4.1
 
-- Fixed error on saving documents in the Libreoffice.
+Resolved issue:
+
+- WD-734 https://youtrack.haulmont.com/issue/WD-734[Error on saving documents in the Libreoffice]
 
 [discrete]
 [[release_2_4_0]]
