@@ -43,7 +43,7 @@ At the same time, the component supports working with documents having both enab
 
 Resolved issue:
 
-- WD-755 https://youtrack.haulmont.com/issue/WD-755[Incorrect spring version in 2.5.2 WebDAV add-on]
+- WD-755 https://youtrack.cuba-platform.com/issue/WD-755[Incorrect spring version in 2.5.2 WebDAV add-on]
 
 [discrete]
 [[release_2_5_2]]
@@ -53,7 +53,7 @@ Resolved issue:
 
 Resolved issue:
 
-- WD-753 https://youtrack.haulmont.com/issue/WD-753[Add component credits file]
+- WD-753 https://youtrack.cuba-platform.com/issue/WD-753[Add component credits file]
 
 [discrete]
 [[release_2_5_0]]
@@ -67,7 +67,7 @@ Resolved issue:
 
 Resolved issue:
 
-- WD-734 https://youtrack.haulmont.com/issue/WD-734[Error on saving documents in the Libreoffice]
+- WD-734 https://youtrack.cuba-platform.com/issue/WD-734[Error on saving documents in the Libreoffice]
 
 [discrete]
 [[release_2_4_0]]
