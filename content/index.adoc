@@ -38,6 +38,16 @@ At the same time, the component supports working with documents having both enab
 == Release Notes
 
 [discrete]
+[[release_2_6_0]]
+=== Release 2.6.0
+
+- <<WebdavDocument collections>> were introduced.
+
+Breaking changes:
+
+- Uniqueness of URI paths of documents. See: <<WebdavDocument collections>>.
+
+[discrete]
 [[release_2_5_3]]
 === Release 2.5.3
 
@@ -417,6 +427,22 @@ public class Contract extends StandardEntity {
 }
 ----
 
+==== WebdavDocument collections
+
+WebdavDocument collection is a special type of `WebdavDocument` that acts as a container for another documents.
+The parent collection of `WebdavDocument` is specified in the `parent` attribute. If this attribute is not specified for a document, it is considered that the document belongs to the root (top-level) collection.
+
+WebdavDocument collection can be created in the *Document browser* screen:
+
+image::webdav-collection.png[]
+
+[WARNING]
+====
+The add-on maintains uniqueness of documents URI resource paths (for example: `/Documents/contract.docx`). By default, a document's name is taken from the latest version of the document.
+If a document with the same URI path already exists, the unique constraint violation occurs. If you do not need to access documents by URIs, or if you are upgrading the add-on from previous versions,
+you can avoid the unique constraint violations by enabling the `webdav.autoGenerateUniqueResourceUri` application property. If this property is set to `true`, a document's name in a duplicate URI path will be replaced with `{id}.extension`, for example: `/3af7de39-25b9-9915-4b02-e604f5f88c5b.docx`.
+====
+
 
 === Version Control
 
@@ -767,6 +793,15 @@ image::security/sec-2-3.png[]
 All buttons intended to manage document versions will be inactive and the document itself will not be saved on the server side after opening it in an external application.
 
 image::security/sec-2-4.png[]
+
+==== Usage of Constraints to Restrict Access to WebdavDocument collection and child documents
+
+If you want to restrict access to a particular WebdavDocument collection along with all its child documents, you need to
+define a constraint of the corresponding type that applies to the document and all its ancestors. The steps for creating a constraint are described in the previous section. Here is an example of a Groovy script for such constraint:
+[source,java]
+----
+!({E}.id == UUID.fromString('3af7de39-25b9-9915-4b02-e604f5f88c5b') || {E}.fullPath.toString().startsWith('/Secret/'))
+----
 
 === Using Digest Authentication
 
