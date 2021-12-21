@@ -1295,6 +1295,16 @@ Interface: `WebdavConfig`
 Example value for LibreOffice:
 `{"vnd.libreoffice.command":{"name":"LibreOffice","protocols":{"writable":"vnd.libreoffice.command:ofe|u|","read_only":"vnd.libreoffice.command:ofv|u|"},"extensions":["odt", "ods", "odp", "doc", "docx", "xls", "xlsx", "ppt", "pptx"]}}`
 
+*webdav.autoGenerateUniqueResourceUri*
+
+If this property is set to `false` and a newly uploaded document has the URI already assigned to another document, the unique constraint violation occurs.
+
+If this property is set to `true` and the URI is already assigned to some document, then the new path will be automatically generated with the format `{id}.extension`.
+
+Default value: false
+
+See: <<_webdavdocument_collections>>
+
 *Link Generator*
 
 Use the application properties described below to configure document downloading/opening:
