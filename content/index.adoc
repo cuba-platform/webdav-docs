@@ -22,7 +22,7 @@
 :plugin-version: 2.5
 :main_man_url: https://doc.cuba-platform.com/manual-7.2
 :rel_notes_url: http://files.cuba-platform.com/cuba/release-notes/7.2
-:revnumber: 2.5
+:revnumber: 2.6
 :sectnums:
 
 == Overview
@@ -102,7 +102,7 @@ To update your Service Pack, follow this https://www.microsoft.com/ru-RU/downloa
 
 ==== Installation of Trial Version
 
-If you do not have a subscription for the add-on, you can install a trial version that is available for 30 days. 
+If you do not have a subscription for the add-on, you can install a trial version that is available for 30 days.
 
 . Launch https://www.cuba-platform.com/tools/[CUBA Studio]. You can download it from the CUBA website. Please ensure that you have Studio version 13.2 or newer.
 
@@ -114,7 +114,7 @@ image::main-menu.png[]
 +
 image::webdav-trial.png[]
 +
-. If you are not signed in CUBA Studio yet, click *Sign In* in the appeared window. 
+. If you are not signed in CUBA Studio yet, click *Sign In* in the appeared window.
 +
 image::signin-window.png[]
 +
@@ -807,7 +807,7 @@ define a constraint of the corresponding type that applies to the document and a
 
 Digest auth example can be found in <<appendix-e-digest-authentication-configuration-example>>.
 
-1. Place the config in the main package in the *web* module, for example:    
+1. Place the config in the main package in the *web* module, for example:
 `com/company/app/webdav-dispatcher-spring.xml`
 
 2. Replace default WebDAV dispatcher config by adding the property with path to new config to `web-app.properties`:
