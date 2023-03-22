@@ -43,7 +43,7 @@ At the same time, the component supports working with documents having both enab
 
 Resolved issues:
 
-- WD-779 https://youtrack.haulmont.com/issue/WD-779[Deadlock for MSSQL during select inside beforeInsert ]
+- WD-779 https://youtrack.cuba-platform.com/issue/WD-779[Deadlock for MSSQL during select inside beforeInsert ]
 
 
 [discrete]
