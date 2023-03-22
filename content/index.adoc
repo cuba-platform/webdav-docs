@@ -38,6 +38,15 @@ At the same time, the component supports working with documents having both enab
 == Release Notes
 
 [discrete]
+[[release_2_6_2]]
+=== Release 2.6.2
+
+Resolved issues:
+
+- WD-779 https://youtrack.haulmont.com/issue/WD-779[Deadlock for MSSQL during select inside beforeInsert ]
+
+
+[discrete]
 [[release_2_6_0]]
 === Release 2.6.0
 
