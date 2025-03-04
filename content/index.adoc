@@ -38,6 +38,14 @@ At the same time, the component supports working with documents having both enab
 == Release Notes
 
 [discrete]
+[[release_2_6_3]]
+=== Release 2.6.3
+
+Resolved issues:
+
+- https://github.com/cuba-platform/cuba/issues/3307[Update dependencies]
+
+[discrete]
 [[release_2_6_2]]
 === Release 2.6.2
 
